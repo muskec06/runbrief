@@ -68,8 +68,10 @@ def main():
 
     st = json.loads(subprocess.run(RB + ["stats", "--json"], cwd=ws, env=env, capture_output=True, text=True).stdout)
     txt = subprocess.run(RB + ["stats"], cwd=ws, env=env, capture_output=True, text=True).stdout.rstrip()
+    svg = os.path.join(os.path.dirname(HERE), "docs", "stats-example.svg")
+    subprocess.run(RB + ["stats", "--svg", svg], cwd=ws, env=env, check=True, capture_output=True)
     with open(os.path.join(out_dir, "session.json"), "w") as f:
-        json.dump(dict(date=time.strftime("%Y-%m-%d"), stats=st, steps=[dict(title=a, cmd=b, out=c) for a, b, c in log]), f, indent=1)
+        json.dump(dict(date=time.strftime("%Y-%m-%d"), stats=st, steps=[dict(title=a, cmd=b.replace(ws, "~"), out=c.replace(ws, "~")) for a, b, c in log]), f, indent=1)
     md = [f"# A real debug session through runbrief ({time.strftime('%Y-%m-%d')})", "",
           "Every command below was executed; outputs are verbatim (temp paths shortened).", ""]
     for title, cmd, o in log:

@@ -101,7 +101,7 @@ def s_raw(t, D, raw):
 
 def s_brief(t, D, brief):
     im = Image.new("RGB", (W, H), BG); d = ImageDraw.Draw(im)
-    caption(d, "With runbrief, the root cause in 163 tokens", 1, "full log saved to disk, opened only when needed")
+    caption(d, "With runbrief, the root cause in 149 tokens", 1, "full log saved to disk, opened only when needed")
     x, y, w, h = 60, 130, 1160, 360
     window(d, x, y, w, h, "bash")
     cmd = '$ runbrief -n build -- "make -C build VERBOSE=1 -k -j2"'
@@ -140,13 +140,13 @@ def s_brief(t, D, brief):
             d.ellipse([80, 518 + i * 34, 92, 530 + i * 34], fill=mix(col, c))
             d.text((104, 512 + i * 34), txt, font=F(SANS, 20), fill=mix(FG, c))
     if n >= 1:
-        counter(d, 900, 520, "context cost", 163, GREEN)
-        d.text((900, 590), "was 16,638  (−99.0%)", font=F(SANS, 18), fill=mix(DIM, ease((t - 2) / 0.5)))
+        counter(d, 900, 520, "context cost", 149, GREEN)
+        d.text((900, 590), "was 16,638  (−99.1%)", font=F(SANS, 18), fill=mix(DIM, ease((t - 2) / 0.5)))
     return im
 
-ROWS = [("CMake + make build, 2 bugs", 16638, 163),
+ROWS = [("CMake + make build, 2 bugs", 16638, 149),
         ("MSBuild / C#, 40 projects", 15746, 189),
-        ("Python crash after 800 log lines", 12519, 84),
+        ("Python crash after 800 log lines", 12519, 77),
         ("pytest -v, 400 tests, 3 failing", 8534, 172),
         ("200k-line emulator trace", 3850018, 84)]
 
@@ -166,7 +166,7 @@ def s_numbers(t, D):
         d.rounded_rectangle([x0, y + 40, x0 + bw * gb + 0.5, y + 52], 4, fill=GREEN)
         if gb > 0.5:
             d.text((x0 + bw + 12, y + 37), f"brief {br}", font=F(SANSB, 15), fill=GREEN)
-    stats = [("98.2%", "fewer tokens on\nbuilds and tests", GREEN), ("22 / 22", "root causes kept\nin 12 scenarios", BLUE),
+    stats = [("98.3%", "fewer tokens on\nbuilds and tests", GREEN), ("22 / 22", "root causes kept\nin 12 scenarios", BLUE),
              ("≈0%", "build-time overhead\n(compiler dominates)", PURPLE)]
     for i, (big, small, col) in enumerate(stats):
         a = ease((t - 2.6 - i * 0.35) / 0.6)

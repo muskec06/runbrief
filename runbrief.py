@@ -5,17 +5,17 @@ Runs a build / test / simulator command, stores the full output in a log
 file, and prints a compact, root-cause-first summary. The agent reads the
 log only when the summary is not enough, and only the part it needs.
 
-  runbrief run   [-n NAME] [-T SEC] [-e N] [-c N] [-w] [--json] -- <command ...>
+  runbrief run   [-n NAME] [-T SEC] [-H N] [-e N] [-c N] [-w] [--json] -- <command ...>
   runbrief grep  REGEX [-n NAME | --log PATH] [-C 2] [-m 30]
   runbrief show  -L LINE [-n NAME | --log PATH] [-C 20]
-  runbrief stats [--json] [--reset]
+  runbrief stats [--svg FILE] [--since HOURS] [--json] [--reset]
   runbrief clean
   runbrief install [DIR]      # put a `runbrief` command on PATH
 
 A single string after `--` runs through the shell (pipes, &&, env vars work).
 `runbrief -n build -- make` (no subcommand) is the same as `runbrief run ...`.
 
-Zero dependencies, Python 3.9+, Linux / macOS / Windows. MIT licence.
+Zero dependencies, Python 3.10+, Linux / macOS / Windows. MIT licence.
 Configuration (environment variables) is documented in README.md.
 """
 import argparse
@@ -32,7 +32,7 @@ import threading
 import time
 from collections import OrderedDict, deque
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 # --------------------------------------------------------------------------- config
 
@@ -48,6 +48,13 @@ def base_dir():
 def log_dir():
     d = os.path.join(base_dir(), "logs")
     os.makedirs(d, exist_ok=True)
+    gi = os.path.join(base_dir(), ".gitignore")
+    if not os.path.exists(gi):           # logs and stats must never end up in the user's repo
+        try:
+            with open(gi, "w") as f:
+                f.write("# created by runbrief: keep logs/stats out of git, keep patterns.txt\n*\n!.gitignore\n!patterns.txt\n")
+        except OSError:
+            pass
     return d
 
 MB = 1024 * 1024
@@ -64,20 +71,29 @@ ERR_PATTERNS = [
     r"^CMake Error\b",
     r"^\s*(E\s{2,}(?!\s*\+)|FAILED\s+\S+::)",           # pytest assertion (not '+ where' notes) / summary
     r"^ERROR:? ",                                       # pytest collection errors, many tools
-    r"Segmentation fault|core dumped|Assertion .*failed|\bpanic:|\bAborted\b",
-    r"\b(FATAL|PANIC|FAULT)\b",
+    r"Segmentation fault|core dumped|Assertion .*failed|\bpanic:",
+    r"(?-i:\b(FATAL|PANIC|FAULT)\b(?!\.\w))|(?-i:^Aborted( \(core dumped\))?$)",  # not file names like Fatal.pm
     r"^error(\[\w+\])?: ",                              # rustc, generic tools
+    # ---- Linux tools: shells, package managers, sanitizers, kernel, services
+    r"^E: |^dpkg: error|npm ERR!|^npm error |^fatal: |^configure: error|failed to solve:",
+    r":\d+: \*\*\* |^g?make(\[\d+\])?: \*\*\* (No rule to make target|.*missing separator)",
+    r"\bruntime error:|Sanitizer:|==\d+== (Invalid (read|write|free)|Conditional jump|Use of uninitialised|.*definitely lost: [1-9])",
+    r"\b(command not found|No such file or directory|Permission denied|Cannot allocate memory|Out of memory"
+    r"|Killed process|No space left on device|Read-only file system|Connection refused|Address already in use)\b",
+    r"(?-i:\b(BUG:|Oops:|Call Trace:|general protection fault|[Kk]ernel panic|segfault at|Failed to start ))",
+    r"\berror -\d+\b",                                  # kernel style: 'read error -71'
 ]
 WARN_PATTERNS = [
     r":\d+(:\d+)?:\s*warning\b",
     r"\(\d+(,\d+)?\)\s*:\s*warning\b",
     r"\bwarning\s+(C|CS|LNK|MSB|NU|CA)\d{3,5}\b",
     r"^CMake Warning\b",
+    r"^W: |npm WARN|^npm warn ",
     r"\b\w*Warning: ",
 ]
 # Consequence lines: true failures, but never the root cause. Counted, not listed.
 CASCADE_PATTERNS = [
-    r"^g?make(\[\d+\])?: \*\*\*", r"^ninja: build stopped", r"^FAILED: ",
+    r"^g?make(\[\d+\])?: \*\*\* (?!No rule to make target|.*missing separator)", r"^ninja: build stopped", r"^FAILED: ",
     r"collect2: error: ld returned", r"^Build FAILED\.?$", r"^\s*\d+ Error\(s\)",
     r"^error: command .* failed", r"^Error: Process completed with exit code",
     r"^gmake(\[\d+\])?: \*\*\*",
@@ -97,7 +113,10 @@ USER_CTX = re.compile(r"^(.+?):(\d+)(?::\d+)?:\s+(required from here|note: in in
 # cheap prefilter: a line is only regex-checked if it contains one of these (lower-case)
 KEYWORDS = ("error", "warn", "fail", "fatal", "fault", "panic", "abort", "assert", "undefined",
             "unresolved", "segmentation", "dumped", "ld:", "e  ", "passed", "***", "build stopped",
-            "required from", "requested here", "tests ", "test run", "% tests")
+            "required from", "requested here", "tests ", "test run", "% tests",
+            "e: ", "w: ", "err!", "npm ", "denied", "not found", "no such file", "killed", "memory",
+            "no space", "read-only", "refused", "in use", "oops", "bug:", "call trace", "invalid",
+            "uninitialised", "lost:", "sanitizer", "segfault", "failed to")
 TEMPLATE_RE = re.compile(r"0[xX][0-9a-fA-F]+|\d+|\S*[\\/]\S*")
 TRIM_RE = re.compile(r"^\.\.\. \[runbrief\] TRIMMED stream lines (\d+)-(\d+)")
 
@@ -141,6 +160,37 @@ def load_patterns():
             re.compile("|".join(warn), re.IGNORECASE),
             re.compile("|".join(CASCADE_PATTERNS)))
 
+def disp_path(p):
+    """Shorter, still unambiguous path: relative inside the cwd, '.../a/b' for long outside paths."""
+    cwd = os.getcwd().rstrip("\\/") + os.sep
+    if p.startswith(cwd):
+        return p[len(cwd):]
+    parts = re.split(r"[\\/]", p)
+    return ".../" + "/".join(parts[-3:]) if len(p) > 60 and len(parts) > 4 else p
+
+SUFFIX_RE = re.compile(r"  (<- .+|\(from [^)]+\))$")
+
+def fit(text, width=240):
+    """Shorten text to width but never cut a trailing '<- file:line in f' / '(from file:line)'."""
+    text = text.rstrip()
+    cwd = os.getcwd().rstrip("\\/") + os.sep
+    if cwd in text:
+        text = text.replace(cwd, "")
+    m = LOC_RE.match(text.strip())
+    if m and len(m.group(1)) > 60:
+        lead = text[:len(text) - len(text.lstrip())]
+        text = lead + text.strip().replace(m.group(1), disp_path(m.group(1)), 1)
+    if len(text) <= width:
+        return text
+    m = SUFFIX_RE.search(text)
+    if m:
+        suf = m.group(0)
+        if len(suf) > width // 2:          # very deep path inside the suffix: keep its tail
+            suf = re.sub(r"((?:<- |\(from ))(\S+?)(:\d+)", lambda g: g.group(1) + ".../"
+                         + "/".join(re.split(r"[\\/]", g.group(2))[-2:]) + g.group(3), suf, count=1)
+        return text[:max(20, width - 6 - len(suf))] + " ..." + suf
+    return text[:width] + " ..."
+
 def short(s, width=240):
     s = s.rstrip()
     return s if len(s) <= width else s[:width] + " ..."
@@ -166,13 +216,10 @@ class Analyzer:
 
     def _add(self, table, n, text, key=None):
         key = key or NUM_RE.sub("#", text.strip())
-        m = re.search(r"  \(from [^)]+\)$", text)
-        if m and len(text) > 240:
-            text = text[:230 - len(m.group(0))] + " ..." + m.group(0)
         if key in table:
             table[key][2] += 1
         elif len(table) < 5000:
-            table[key] = [n, short(text), 1, []]
+            table[key] = [n, fit(text), 1, []]
             return key
         return None
 
@@ -239,7 +286,7 @@ class Analyzer:
                 return
             fr = self.tb["frames"]
             user = [f for f in fr if not STDLIB_HINT.search(f[0])] or fr
-            where = f"  <- {user[-1][0]}:{user[-1][1]} in {user[-1][2]}" if user else ""
+            where = f"  <- {disp_path(user[-1][0])}:{user[-1][1]} in {user[-1][2]}" if user else ""
             self.tb = None
             self._add(self.errors, n, st + where, key="TB|" + NUM_RE.sub("#", st))
             self.flagged.add(n)
@@ -443,6 +490,7 @@ def cmd_run(a):
 
     an = Analyzer(ctx_after=a.context)
     tail = deque(maxlen=40)
+    head_lines = []
     n = raw_bytes = size = trims = 0
     timed_out = interrupted = False
     t0 = time.time()
@@ -480,6 +528,8 @@ def cmd_run(a):
             s = ln[:-1]
             an.feed(n, s)
             tail.append((n, s))
+            if len(head_lines) < a.head:
+                head_lines.append((n, s))
             if size >= cap:
                 f.close()
                 size = trim_file(tmp, keep_head, keep_tail, n)
@@ -529,9 +579,14 @@ def cmd_run(a):
     else:
         out(f"[runbrief] {name}: {status} | {dt:.1f}s | {n:,} lines | errors {len(an.errors)}"
             + (f" ({n_err_hits} hits)" if n_err_hits != len(an.errors) else "")
-            + f" | warnings {len(an.warnings)}" + trim_note + f" | log {rel}")
+            + f" | warnings {len(an.warnings)}" + trim_note + f" | log {rel}"
+            + (f" | read: runbrief show -n {name} -L 1 -C 40" if rc == 0 and not an.errors and not head_lines else ""))
         for r in an.results[-2:]:
             out(f"tests: {r}")
+        if head_lines:
+            out(f"head (first {len(head_lines)} of {n:,} lines):")
+            for k, s in head_lines:
+                out(f"  {short(s, 200)}")
         show_err = rc != 0 or an.errors
         if show_err and an.errors:
             items = list(an.errors.values())
@@ -614,43 +669,198 @@ def cmd_show(a):
 
 # --------------------------------------------------------------------------- stats / clean
 
-def cmd_stats(a):
+def collect_stats(since_hours=None):
     sp = os.path.join(base_dir(), "stats.jsonl")
-    if a.reset:
-        if os.path.exists(sp): os.remove(sp)
-        print("[runbrief] stats reset"); return 0
     rows = []
     if os.path.exists(sp):
         for ln in open(sp, encoding="utf-8"):
             try: rows.append(json.loads(ln))
             except ValueError: pass
+    if since_hours:
+        cut = time.time() - since_hours * 3600
+        rows = [r for r in rows if r.get("ts", 0) >= cut]
     runs = [r for r in rows if r.get("kind") == "run"]
     follow = [r for r in rows if r.get("kind") in ("grep", "show")]
-    raw = sum(r.get("raw_bytes", 0) for r in runs)
+    # An agent never reads more than its tool-output limit of one command, so each run's raw
+    # output is counted only up to RUNBRIEF_STATS_CAP_TOKENS (0 = no cap).
+    cap_tok = int(env_num("RUNBRIEF_STATS_CAP_TOKENS", 25000))
+    capb = cap_tok * 4 if cap_tok > 0 else float("inf")
+    for r in runs:
+        r["_raw"] = min(r.get("raw_bytes", 0), capb)
+    raw = sum(r["_raw"] for r in runs)
+    raw_uncapped = sum(r.get("raw_bytes", 0) for r in runs)
     brief = sum(r.get("brief_bytes", 0) for r in runs)
     fol = sum(r.get("brief_bytes", 0) for r in follow)
-    seen = raw and (brief + fol)
-    res = dict(runs=len(runs), failed=sum(1 for r in runs if r.get("status") != "ok"),
-               followups=len(follow), raw_tokens=tok(raw), brief_tokens=tok(brief),
-               followup_tokens=tok(fol), net_saved_tokens=tok(raw - brief - fol),
-               reduction_pct=round(100 * (1 - seen / raw), 2) if raw else 0.0,
-               disk_mb=round(sum(os.path.getsize(f) for f in glob.glob(os.path.join(log_dir(), "*"))) / MB, 2))
-    by = {}
+    read = brief + fol
+    by = OrderedDict()
     for r in runs:
-        b = by.setdefault(r.get("name"), [0, 0, 0])
-        b[0] += 1; b[1] += r.get("raw_bytes", 0); b[2] += r.get("brief_bytes", 0)
-    res["by_name"] = {k: dict(runs=v[0], raw_tokens=tok(v[1]), brief_tokens=tok(v[2])) for k, v in by.items()}
+        b = by.setdefault(r.get("name") or "?", dict(runs=0, failed=0, raw=0, read=0))
+        b["runs"] += 1; b["raw"] += r["_raw"]; b["read"] += r.get("brief_bytes", 0)
+        b["failed"] += r.get("status") != "ok"
+    for r in follow:                           # follow-up reads count against their command
+        b = by.get(r.get("name") or "?")
+        if b: b["read"] += r.get("brief_bytes", 0)
+    files = glob.glob(os.path.join(log_dir(), "*.log*"))
+    ts = [r.get("ts", 0) for r in rows if r.get("ts")]
+    return dict(
+        runs=len(runs), failed=sum(1 for r in runs if r.get("status") != "ok"), followups=len(follow),
+        raw_tokens=tok(raw), raw_uncapped_tokens=tok(raw_uncapped), cap_tokens=cap_tok,
+        capped_runs=sum(1 for r in runs if r.get("raw_bytes", 0) > capb), brief_tokens=tok(brief), followup_tokens=tok(fol), read_tokens=tok(read),
+        net_saved_tokens=tok(raw - read), reduction_pct=round(100 * (1 - read / raw), 2) if raw else 0.0,
+        disk_mb=round(sum(os.path.getsize(f) for f in files) / MB, 2), log_files=len(files),
+        first_ts=min(ts) if ts else None, last_ts=max(ts) if ts else None,
+        by_name={k: dict(runs=v["runs"], failed=v["failed"], raw_tokens=tok(v["raw"]), read_tokens=tok(v["read"]))
+                 for k, v in sorted(by.items(), key=lambda kv: -(kv[1]["raw"] - kv[1]["read"]))},
+        recent=[dict(ts=r.get("ts"), name=r.get("name"), status=r.get("status"), seconds=r.get("seconds"),
+                     raw_tokens=tok(r["_raw"]), capped=r.get("raw_bytes", 0) > capb,
+                     read_tokens=tok(r.get("brief_bytes", 0)))
+                for r in runs[-6:]])
+
+def can_unicode():
+    enc = (getattr(sys.stdout, "encoding", "") or "").lower()
+    return "utf" in enc and not os.environ.get("RUNBRIEF_ASCII")
+
+def bar(frac, width, uni):
+    frac = max(0.0, min(1.0, frac))
+    if not uni:
+        n = int(round(frac * width)); return "#" * n + "." * (width - n)
+    eighths = int(round(frac * width * 8))
+    full, part = divmod(eighths, 8)
+    return ("\u2588" * full + ("" if part == 0 else " \u258f\u258e\u258d\u258c\u258b\u258a\u2589"[part])).ljust(width, "\u00b7")
+
+def fmt_pct(x):
+    if x >= 99.995 and x < 100:
+        return ">99.99%"
+    return f"{x:.2f}%" if x >= 99.9 else f"{x:.1f}%"
+
+def when(ts):
+    return time.strftime("%Y-%m-%d %H:%M", time.localtime(ts)) if ts else "-"
+
+def render_stats_text(st, uni):
+    h = "\u2500" if uni else "-"
+    arrow = "\u2192" if uni else "->"
+    L = []
+    span = f" | {when(st['first_ts'])} {arrow} {when(st['last_ts'])[11:]}" if st["first_ts"] else ""
+    L.append(f"runbrief stats | {st['runs']} runs ({st['failed']} failed) | {st['followups']} follow-up reads{span}")
+    L.append(h * 72)
+    capnote = (f"(raw output; {st['capped_runs']} huge run(s) counted as {st['cap_tokens']:,})"
+               if st["capped_runs"] else "(raw output of every command)")
+    L.append(f"  would have read   {st['raw_tokens']:>12,} tokens   {capnote}")
+    L.append(f"  actually read     {st['read_tokens']:>12,} tokens   (briefs {st['brief_tokens']:,} + follow-ups {st['followup_tokens']:,})")
+    L.append(f"  saved             {st['net_saved_tokens']:>12,} tokens")
+    L.append(f"  {bar(st['reduction_pct'] / 100, 52, uni)}  {fmt_pct(st['reduction_pct'])} saved")
+    if st["by_name"]:
+        total = max(1, st["net_saved_tokens"])
+        L.append("")
+        L.append(f"  {'command':<12}{'runs':>5}{'raw tokens':>14}{'read':>9}{'saved':>9}   share of savings")
+        for k, v in list(st["by_name"].items())[:8]:
+            sv = v["raw_tokens"] - v["read_tokens"]
+            pct = 100 * (1 - v["read_tokens"] / v["raw_tokens"]) if v["raw_tokens"] else 0
+            L.append(f"  {k[:12]:<12}{v['runs']:>5}{v['raw_tokens']:>14,}{v['read_tokens']:>9,}{fmt_pct(pct):>9}   "
+                     f"{bar(sv / total, 18, uni)} {100 * sv / total:4.0f}%")
+    if st["recent"]:
+        L.append("")
+        L.append("  recent runs")
+        for r in reversed(st["recent"]):
+            ok = ("\u2713" if uni else "ok") if r["status"] == "ok" else ("\u2717" if uni else "!!")
+            L.append(f"   {ok} {when(r['ts'])[11:]}  {str(r['name'])[:12]:<12} {r['raw_tokens']:>11,}{'+' if r.get('capped') else ' '}"
+                     f"{arrow} {r['read_tokens']:>5,} tokens  {r['status'] or ''}")
+    L.append(h * 72)
+    if st["capped_runs"]:
+        L.append(f"  + capped at {st['cap_tokens']:,} tokens per run (an agent's tool-output limit); "
+                 f"uncapped raw total {st['raw_uncapped_tokens']:,}")
+    L.append(f"  logs {st['disk_mb']} MB in {st['log_files']} file(s) | tokens = chars/4 | runbrief stats --svg card.svg")
+    return "\n".join(L)
+
+def render_stats_svg(st, title="runbrief"):
+    """Self-contained SVG card (dark), safe to embed in a README."""
+    from xml.sax.saxutils import escape as E
+    W = 820
+    names = list(st["by_name"].items())[:5]
+    recent = list(reversed(st["recent"]))[:5]
+    H = 318 + 34 * len(names) + (44 + 26 * len(recent) if recent else 0)
+    mono = "ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace"
+    sans = "-apple-system,'Segoe UI',Helvetica,Arial,'DejaVu Sans',sans-serif"
+    o = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" '
+         f'aria-label="runbrief token savings">',
+         f'<rect width="{W}" height="{H}" rx="16" fill="#0d1117"/>',
+         f'<rect x="1" y="1" width="{W-2}" height="{H-2}" rx="15" fill="none" stroke="#30363d"/>',
+         f'<text x="32" y="50" font-family="{mono}" font-size="26" font-weight="700" fill="#e6edf3">{E(title)}</text>',
+         f'<text x="{32 + 15 * len(title) + 14}" y="49" font-family="{sans}" font-size="15" fill="#8b949e">'
+         f'{st["runs"]} runs \u00b7 {st["failed"]} failed \u00b7 {st["followups"]} follow-up reads'
+         + (f' \u00b7 {E(when(st["first_ts"]))} \u2192 {E(when(st["last_ts"])[11:])}' if st["first_ts"] else "") + '</text>']
+    cards = [("would have read", f'{st["raw_tokens"]:,}', "#f85149"), ("actually read", f'{st["read_tokens"]:,}', "#3fb950"),
+             ("saved", fmt_pct(st["reduction_pct"]), "#58a6ff")]
+    for i, (lab, val, col) in enumerate(cards):
+        x = 32 + i * 258
+        o.append(f'<rect x="{x}" y="76" width="240" height="96" rx="12" fill="#161b22" stroke="#30363d"/>')
+        o.append(f'<text x="{x+18}" y="104" font-family="{sans}" font-size="14" fill="#8b949e">{lab}</text>')
+        o.append(f'<text x="{x+18}" y="150" font-family="{sans}" font-size="34" font-weight="700" fill="{col}">{val}</text>')
+    o.append(f'<text x="{32+18+170}" y="104" font-family="{sans}" font-size="12" fill="#6e7681">tokens</text>')
+    o.append(f'<text x="{290+18+150}" y="104" font-family="{sans}" font-size="12" fill="#6e7681">tokens</text>')
+    o.append(f'<text x="{548+222}" y="104" text-anchor="end" font-family="{sans}" font-size="12" fill="#6e7681">'
+             f'{st["net_saved_tokens"]:,} tokens</text>')
+    # overall bar: read vs raw (read part is drawn with a minimum width so it stays visible)
+    y = 196
+    frac = st["read_tokens"] / st["raw_tokens"] if st["raw_tokens"] else 0
+    o.append(f'<rect x="32" y="{y}" width="756" height="14" rx="7" fill="#f85149" opacity="0.85"/>')
+    o.append(f'<rect x="32" y="{y}" width="{max(6, 756 * frac):.1f}" height="14" rx="7" fill="#3fb950"/>')
+    o.append(f'<text x="32" y="{y+36}" font-family="{sans}" font-size="13" fill="#8b949e">'
+             f'green = what the agent read (briefs {st["brief_tokens"]:,} + follow-ups {st["followup_tokens"]:,}); '
+             f'red = raw output it did not have to read</text>')
+    y += 64
+    o.append(f'<text x="32" y="{y}" font-family="{sans}" font-size="13" fill="#6e7681">COMMAND</text>'
+             f'<text x="260" y="{y}" font-family="{sans}" font-size="13" fill="#6e7681">RAW \u2192 READ (tokens)</text>'
+             f'<text x="520" y="{y}" font-family="{sans}" font-size="13" fill="#6e7681">SHARE OF SAVINGS</text>')
+    total = max(1, st["net_saved_tokens"])
+    for k, v in names:
+        y += 34
+        sv = v["raw_tokens"] - v["read_tokens"]
+        o.append(f'<text x="32" y="{y}" font-family="{mono}" font-size="15" fill="#e6edf3">{E(k[:18])}'
+                 f'<tspan fill="#6e7681" font-size="13"> \u00d7{v["runs"]}</tspan></text>')
+        o.append(f'<text x="260" y="{y}" font-family="{mono}" font-size="15" fill="#8b949e">{v["raw_tokens"]:,} '
+                 f'<tspan fill="#6e7681">\u2192</tspan> <tspan fill="#3fb950">{v["read_tokens"]:,}</tspan></text>')
+        o.append(f'<rect x="520" y="{y-12}" width="210" height="12" rx="6" fill="#21262d"/>')
+        o.append(f'<rect x="520" y="{y-12}" width="{max(4, 210 * sv / total):.1f}" height="12" rx="6" fill="#58a6ff"/>')
+        o.append(f'<text x="740" y="{y}" font-family="{sans}" font-size="13" fill="#8b949e">{100 * sv / total:.0f}%</text>')
+    if recent:
+        y += 44
+        o.append(f'<text x="32" y="{y}" font-family="{sans}" font-size="13" fill="#6e7681">RECENT RUNS</text>')
+        for r in recent:
+            y += 26
+            ok = r["status"] == "ok"
+            o.append(f'<circle cx="38" cy="{y-5}" r="5" fill="{"#3fb950" if ok else "#f85149"}"/>')
+            f14 = f'font-family="{mono}" font-size="14"'
+            o.append(f'<text x="52" y="{y}" {f14} fill="#8b949e">{E(when(r["ts"])[11:])}</text>')
+            o.append(f'<text x="112" y="{y}" {f14} fill="#e6edf3">{E(str(r["name"])[:14])}</text>')
+            o.append(f'<text x="330" y="{y}" text-anchor="end" {f14} fill="#8b949e">'
+                     f'{r["raw_tokens"]:,}{"+" if r.get("capped") else ""}</text>')
+            o.append(f'<text x="342" y="{y}" {f14} fill="#6e7681">\u2192</text>')
+            o.append(f'<text x="420" y="{y}" text-anchor="end" {f14} fill="#3fb950">{r["read_tokens"]:,}</text>')
+            o.append(f'<text x="440" y="{y}" {f14} fill="{"#8b949e" if ok else "#f85149"}">{E(str(r["status"]))}</text>')
+    o.append(f'<text x="{W-32}" y="{H-18}" text-anchor="end" font-family="{sans}" font-size="12" fill="#6e7681">'
+             f'tokens = chars/4'
+             + (f' \u00b7 + = huge output counted as {st["cap_tokens"]:,} (tool limit)' if st["capped_runs"] else "")
+             + ' \u00b7 github.com/muskec06/runbrief</text>')
+    o.append("</svg>")
+    return "\n".join(o)
+
+def cmd_stats(a):
+    sp = os.path.join(base_dir(), "stats.jsonl")
+    if a.reset:
+        if os.path.exists(sp): os.remove(sp)
+        print("[runbrief] stats reset"); return 0
+    st = collect_stats(a.since)
     if a.json:
-        print(json.dumps(res, indent=1)); return 0
-    print(f"[runbrief] {res['runs']} runs ({res['failed']} failed), {res['followups']} follow-up reads")
-    print(f"  raw output      ~{res['raw_tokens']:,} tokens   (what the agent would have read)")
-    print(f"  briefs          ~{res['brief_tokens']:,} tokens")
-    print(f"  follow-ups      ~{res['followup_tokens']:,} tokens   (grep/show)")
-    print(f"  net saved       ~{res['net_saved_tokens']:,} tokens   ({res['reduction_pct']}% less)")
-    print(f"  log folder      {res['disk_mb']} MB")
-    for k, v in sorted(by.items(), key=lambda x: -x[1][1])[:8]:
-        print(f"    {k:<14} {v[0]:>4} runs  ~{tok(v[1]):>10,} -> ~{tok(v[2]):,} tokens")
-    print("  (tokens estimated as chars/4)")
+        print(json.dumps(st, indent=1)); return 0
+    if a.svg:
+        with open(a.svg, "w", encoding="utf-8") as f:
+            f.write(render_stats_svg(st))
+        print(f"[runbrief] wrote {a.svg} ({st['runs']} runs, {fmt_pct(st['reduction_pct'])} saved)")
+        return 0
+    if not st["runs"]:
+        print("[runbrief] no runs recorded yet in " + os.path.relpath(base_dir())); return 0
+    print(render_stats_text(st, can_unicode()))
     return 0
 
 def cmd_clean(a):
@@ -714,6 +924,8 @@ def main(argv=None):
     r.add_argument("-w", "--warnings", action="store_true", help="list warnings even on success")
     r.add_argument("-c", "--context", type=int, default=0, help="lines to show after each error")
     r.add_argument("-t", "--tail", type=int, default=None, help="tail lines on failure (default 5, or 25 if no error matched)")
+    r.add_argument("-H", "--head", type=int, default=0,
+                   help="also print the first N lines (for big outputs that are themselves the answer)")
     r.add_argument("--json", action="store_true")
     r.add_argument("cmd", nargs=argparse.REMAINDER)
 
@@ -727,6 +939,8 @@ def main(argv=None):
 
     st = sp.add_parser("stats", help="token savings so far")
     st.add_argument("--json", action="store_true"); st.add_argument("--reset", action="store_true")
+    st.add_argument("--svg", metavar="FILE", help="write a shareable SVG card")
+    st.add_argument("--since", type=float, metavar="HOURS", help="only the last N hours")
     sp.add_parser("clean", help="delete all logs")
     ins = sp.add_parser("install", help="install a `runbrief` command on PATH")
     ins.add_argument("dir", nargs="?")

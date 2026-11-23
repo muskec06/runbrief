@@ -113,7 +113,7 @@ def test_python_traceback_compacted_to_user_frame(env, tmp_path):
     rc, out = rb(env, "-n", "py", "--", PY, s)
     assert rc == 1
     err = [l for l in out.splitlines() if "JSONDecodeError" in l]
-    assert err and "s.py:5 in load_cfg" in err[0], out     # user frame, not json/decoder.py
+    assert err and err[0].rstrip().endswith("s.py:5 in load_cfg"), out    # user frame, not json/decoder.py
 
 
 def test_pytest_result_line_and_failures(env, tmp_path):
@@ -274,3 +274,121 @@ def test_gcc_template_error_points_at_user_line(env, tmp_path):
                  extra={"RUNBRIEF_PASSTHROUGH_LINES": "0"})
     assert rc != 0
     assert "(from bus.cpp:7)" in out, out
+
+
+# ---------------------------------------------------------------- 1.0.1: long paths, Linux tools, safety
+
+def test_long_path_keeps_file_line_and_function(env, tmp_path):
+    deep = tmp_path.joinpath(*["very_long_directory_name_%02d" % i for i in range(8)])
+    deep.mkdir(parents=True)
+    s = script(deep, """
+        import json
+        for i in range(200): print('loading', i)
+        def load_cfg(txt):
+            return json.loads(txt)
+        load_cfg('{bad json')
+    """)
+    rc, out = rb(env, "-n", "py", "--", PY, s)
+    err = [l for l in out.splitlines() if "JSONDecodeError" in l][0]
+    assert err.rstrip().endswith("s.py:5 in load_cfg"), err
+    assert len(err) <= 250
+
+
+def test_linux_tool_errors(env, tmp_path):
+    s = script(tmp_path, r"""
+        for i in range(100): print('Get:%d http://archive.ubuntu.com/ubuntu noble/main amd64 pkg%d' % (i, i))
+        print('E: Unable to locate package libfoo-dev')
+        print('npm ERR! code ERESOLVE')
+        print('==4242== Invalid read of size 4')
+        print('[   12.345] usb 1-1: device descriptor read/64, error -71')
+        print('[   13.000] BUG: kernel NULL pointer dereference, address: 0000000000000008')
+        print('make: *** No rule to make target \'drivers/uart.o\'.  Stop.')
+        print('bash: line 1: arm-none-eabi-gcc: command not found')
+        raise SystemExit(2)
+    """)
+    rc, out = rb(env, "-n", "lx", "--", PY, s)
+    for needle in ("Unable to locate package", "ERESOLVE", "Invalid read", "error -71",
+                   "NULL pointer", "No rule to make target", "command not found"):
+        assert needle in out.split("build-system")[0], needle   # listed as root causes, not cascade
+
+
+def test_file_names_are_not_errors(env, tmp_path):
+    s = script(tmp_path, """
+        for i in range(300): print('/usr/share/perl/5.38/file%d.pm' % i)
+        for n in ('Fatal.pm', 'fault_handler.c', 'panic.c', 'Aborted.txt', 'bug_report.md'):
+            print('/usr/src/' + n)
+    """)
+    rc, out = rb(env, "-n", "find", "--", PY, s)
+    assert rc == 0 and "errors 0" in out, out
+
+
+def test_head_option_shows_first_lines(env, tmp_path):
+    s = script(tmp_path, "for i in range(1000): print('entry', i)")
+    rc, out = rb(env, "-n", "ls", "-H", "3", "--", PY, s)
+    assert "head (first 3 of 1,000 lines)" in out and "entry 2" in out and "entry 3" not in out
+
+
+def test_success_brief_tells_how_to_read_output(env, tmp_path):
+    s = script(tmp_path, "for i in range(1000): print('entry', i)")
+    rc, out = rb(env, "-n", "ls", "--", PY, s)
+    assert "read: runbrief show -n ls" in out
+
+
+def test_data_dir_ignores_itself_in_git(env, tmp_path):
+    rb(env, "-n", "x", "--", PY, "-c", "print(1)")
+    gi = open(os.path.join(env["RUNBRIEF_DIR"], ".gitignore")).read()
+    assert "*" in gi and "!patterns.txt" in gi
+
+
+# ---------------------------------------------------------------- 1.1.0: stats dashboard and card
+
+def _two_runs(env, tmp_path):
+    big = script(tmp_path, "for i in range(200000): print('trace line %08d with some padding' % i)\nraise SystemExit(1)", "big.py")
+    small = script(tmp_path, "for i in range(2000): print('compiling unit', i)", "small.py")
+    rb(env, "-n", "emu", "--", PY, big)
+    rb(env, "-n", "build", "--", PY, small)
+    rb(env, "grep", "unit 5$", "-n", "build")
+
+
+def test_stats_caps_huge_runs_at_tool_limit(env, tmp_path):
+    _two_runs(env, tmp_path)
+    st = json.loads(rb(env, "stats", "--json")[1])
+    assert st["capped_runs"] == 1 and st["raw_uncapped_tokens"] > st["raw_tokens"]
+    assert st["by_name"]["emu"]["raw_tokens"] == 25000
+    assert list(st["by_name"])[0] in ("emu", "build")               # ordered by tokens saved
+    st0 = json.loads(rb(env, "stats", "--json", extra={"RUNBRIEF_STATS_CAP_TOKENS": "0"})[1])
+    assert st0["capped_runs"] == 0 and st0["raw_tokens"] == st0["raw_uncapped_tokens"]
+
+
+def test_stats_text_dashboard_unicode_and_ascii(env, tmp_path):
+    _two_runs(env, tmp_path)
+    rc, out = rb(env, "stats")
+    assert "would have read" in out and "share of savings" in out and "recent runs" in out
+    rc, out = rb(env, "stats", extra={"RUNBRIEF_ASCII": "1"})
+    assert all(ord(c) < 128 for c in out), "ascii mode must be pure ASCII"
+    assert "#" in out
+
+
+def test_stats_svg_card_is_valid_xml(env, tmp_path):
+    import xml.etree.ElementTree as ET
+    _two_runs(env, tmp_path)
+    card = tmp_path / "card.svg"
+    rc, out = rb(env, "stats", "--svg", str(card))
+    root = ET.parse(str(card)).getroot()
+    assert root.tag.endswith("svg")
+    text = card.read_text(encoding="utf-8")
+    assert "would have read" in text and "emu" in text and "build" in text
+
+
+def test_stats_since_filters(env, tmp_path):
+    rb(env, "-n", "b", "--", PY, "-c", "print(1)")
+    st = json.loads(rb(env, "stats", "--json", "--since", "0.0001")[1])
+    assert st["runs"] in (0, 1)
+    sp = os.path.join(env["RUNBRIEF_DIR"], "stats.jsonl")
+    with open(sp) as f:
+        rows = [json.loads(l) for l in f]
+    rows[0]["ts"] -= 3 * 3600
+    with open(sp, "w") as f:
+        f.write("\n".join(json.dumps(r) for r in rows) + "\n")
+    st = json.loads(rb(env, "stats", "--json", "--since", "1")[1])
+    assert st["runs"] == 0

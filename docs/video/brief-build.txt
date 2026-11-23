@@ -1,6 +1,6 @@
-[runbrief] build: FAIL exit=2 | 6.5s | 607 lines | errors 2 (74 hits) | warnings 0 | log .runbrief/logs/build-20261123-001927-814-fail.log
+[runbrief] build: FAIL exit=2 | 6.1s | 607 lines | errors 2 (74 hits) | warnings 0 | log .runbrief/logs/build-20261123-102054-776-fail.log
 errors (first-seen order, showing 2/2):
-  L18: ~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope  [x73]
-  L499: ~/emu/src/periph/uart.cpp:6:68: error: ‘baud_divisor’ was not declared in this scope
-build-system: 75 failure line(s), first L26: make[2]: *** [CMakeFiles/emu.dir/build.make:76: CMakeFiles/emu.dir/src/cpu/op_000.cpp.o] Error 1
+  L18: include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope  [x73]
+  L507: src/periph/uart.cpp:6:68: error: ‘baud_divisor’ was not declared in this scope
+build-system: 75 failure line(s), first L26: make[2]: *** [CMakeFiles/emu.dir/build.make:90: CMakeFiles/emu.dir/src/cpu/op_001.cpp.o] Error 1
 more: runbrief grep 'REGEX' -n build  |  runbrief show -n build -L <line> -C 20

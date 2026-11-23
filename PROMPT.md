@@ -1,52 +1,66 @@
 # Copy-paste prompts
 
-## A. Claude in the browser / app (cloud chat with code execution), repo on GitHub
+All prompts pin a released version (`v1.1.0`), so a later change to the repository can never
+change what runs in your session. Update the tag when you want a newer release.
 
-Paste as the first message of a new chat, then describe the task on the next line:
+## A. New chat - Claude in the browser / app (code execution), repo on GitHub
 
 ```text
-Before anything else: git clone --depth 1 https://github.com/muskec06/runbrief /tmp/runbrief
+Before anything else: git clone --depth 1 --branch v1.1.0 https://github.com/muskec06/runbrief /tmp/runbrief
 and follow /tmp/runbrief/AGENTS.md for this whole conversation (run its setup step).
 If cloning fails, tell me and I will attach runbrief.py.
 Task:
 ```
 
-## B. Same, without GitHub (attach the file)
+## B. A conversation that is already running
 
-Attach `runbrief.py` and `AGENTS.md` (or the whole repo zip), then:
+```text
+From now on: git clone --depth 1 --branch v1.1.0 https://github.com/muskec06/runbrief /tmp/runbrief
+(skip if /tmp/runbrief exists) and follow /tmp/runbrief/AGENTS.md for the rest of this
+conversation. Start by writing HANDOFF.md for where we are now.
+```
+It saves tokens from this point on. What is already in the conversation stays until the chat
+is compacted or you move to a new chat with HANDOFF.md (prompt A + "Continue from the attached
+HANDOFF.md").
+
+## C. Without GitHub (attach the files)
+
+Attach `runbrief.py` and `AGENTS.md`, then:
 
 ```text
 Use the attached runbrief.py and follow AGENTS.md for this whole conversation
 (run its setup step first). Task:
 ```
 
-## C. Claude skill (no prompt needed afterwards)
+## D. Claude skill (no prompt needed afterwards)
 
 Upload `dist/runbrief-skill.zip` once: Customize > Skills > + > Create skill > Upload a skill
-(code execution must be enabled). In each chat you can then just say:
+(code execution must be enabled). Then start chats with:
 
 ```text
 Use the runbrief skill. Task:
 ```
+A skill is re-loaded by its description whenever builds or tests come up, so it survives
+long conversations better than a one-time prompt.
 
-## D. Claude Code (CLI, desktop, web) - permanent per project
+## E. Claude Code (CLI, desktop, web) - permanent per project
 
 ```bash
 python3 integrations/claude-code/install.py /path/to/project
 ```
 Commit the generated `.claude/` folder, `CLAUDE.md` additions and `.runbrief/patterns.txt`.
-Hooks then enforce the rules; no prompt needed.
+Hooks then enforce the rules in every session, also after `/compact`.
 
-## E. Other agents (Cursor, Codex, Aider, Copilot agent, ...)
+## F. Other agents (Cursor, Codex, Aider, Copilot agent, ...)
 
 Copy `runbrief.py` into the repo (e.g. `tools/runbrief.py`) and append `AGENTS.md`
 to the agent's rules file (`AGENTS.md`, `.cursorrules`, `CONVENTIONS.md`, ...).
 
 ## Moving a long conversation to a new one
 
-Send this in the old conversation, then paste the result into the new one after prompt A/B/C:
+Send this in the old conversation, then paste the result into the new one after prompt A or D:
 
 ```text
-Write HANDOFF.md (max 40 lines): goal, decisions made, files changed, current error or
-state, next step. No code or logs. Send it as a file.
+Write HANDOFF.md (max 40 lines): first line "Session uses runbrief", then goal, decisions made,
+files changed, current error or state, next step. No code or logs. Send it as a file.
 ```

@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="594" viewBox="0 0 820 594" role="img" aria-label="runbrief token savings">
+<rect width="820" height="594" rx="16" fill="#0d1117"/>
+<rect x="1" y="1" width="818" height="592" rx="15" fill="none" stroke="#30363d"/>
+<text x="32" y="50" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="26" font-weight="700" fill="#e6edf3">runbrief</text>
+<text x="166" y="49" font-family="-apple-system,'Segoe UI',Helvetica,Arial,'DejaVu Sans',sans-serif" font-size="15" fill="#8b949e">6 runs · 4 failed · 2 follow-up reads · 2026-11-23 10:34 → 10:34</text>
+<rect x="32" y="76" width="240" height="96" rx="12" fill="#161b22" stroke="#30363d"/>
+<text x="50" y="104" font-family="-apple-system,'Segoe UI',Helvetica,Arial,'DejaVu Sans',sans-serif" font-size="14" fill="#8b949e">would have read</text>
+<text x="50" y="150" font-family="-apple-system,'Segoe UI',Helvetica,Arial,'DejaVu Sans',sans-serif" font-size="34" font-weight="700" fill="#f85149">72,393</text>
+<rect x="290" y="76" width="240" height="96" rx="12" fill="#161b22" stroke="#30363d"/>
+<text x="308" y="104" font-family="-apple-system,'Segoe UI',Helvetica,Arial,'DejaVu Sans',sans-serif" font-size="14" fill="#8b949e">actually read</text>
+<text x="308" y="150" font-family="-apple-system,'Segoe UI',Helvetica,Arial,'DejaVu Sans',sans-serif" font-size="34" font-weight="700" fill="#3fb950">1,050</text>
+<rect x="548" y="76" width="240" height="96" rx="12" fill="#161b22" stroke="#30363d"/>
+<text x="566" y="104" font-family="-apple-system,'Segoe UI',Helvetica,Arial,'DejaVu Sans',sans-serif" font-size="14" fill="#8b949e">saved</text>
+<text x="566" y="150" font-family="-apple-system,'Segoe UI',Helvetica,Arial,'DejaVu Sans',sans-serif" font-size="34" font-weight="700" fill="#58a6ff">98.5%</text>
+<text x="220" y="104" font-family="-apple-system,'Segoe UI',Helvetica,Arial,'DejaVu Sans',sans-serif" font-size="12" fill="#6e7681">tokens</text>
+<text x="458" y="104" font-family="-apple-system,'Segoe UI',Helvetica,Arial,'DejaVu Sans',sans-serif" font-size="12" fill="#6e7681">tokens</text>
+<text x="770" y="104" text-anchor="end" font-family="-apple-system,'Segoe UI',Helvetica,Arial,'DejaVu Sans',sans-serif" font-size="12" fill="#6e7681">71,343 tokens</text>
+<rect x="32" y="196" width="756" height="14" rx="7" fill="#f85149" opacity="0.85"/>
+<rect x="32" y="196" width="11.0" height="14" rx="7" fill="#3fb950"/>
+<text x="32" y="232" font-family="-apple-system,'Segoe UI',Helvetica,Arial,'DejaVu Sans',sans-serif" font-size="13" fill="#8b949e">green = what the agent read (briefs 625 + follow-ups 425); red = raw output it did not have to read</text>
+<text x="32" y="260" font-family="-apple-system,'Segoe UI',Helvetica,Arial,'DejaVu Sans',sans-serif" font-size="13" fill="#6e7681">COMMAND</text><text x="260" y="260" font-family="-apple-system,'Segoe UI',Helvetica,Arial,'DejaVu Sans',sans-serif" font-size="13" fill="#6e7681">RAW → READ (tokens)</text><text x="520" y="260" font-family="-apple-system,'Segoe UI',Helvetica,Arial,'DejaVu Sans',sans-serif" font-size="13" fill="#6e7681">SHARE OF SAVINGS</text>
+<text x="32" y="294" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="15" fill="#e6edf3">build<tspan fill="#6e7681" font-size="13"> ×3</tspan></text>
+<text x="260" y="294" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="15" fill="#8b949e">30,764 <tspan fill="#6e7681">→</tspan> <tspan fill="#3fb950">582</tspan></text>
+<rect x="520" y="282" width="210" height="12" rx="6" fill="#21262d"/>
+<rect x="520" y="282" width="88.8" height="12" rx="6" fill="#58a6ff"/>
+<text x="740" y="294" font-family="-apple-system,'Segoe UI',Helvetica,Arial,'DejaVu Sans',sans-serif" font-size="13" fill="#8b949e">42%</text>
+<text x="32" y="328" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="15" fill="#e6edf3">emu<tspan fill="#6e7681" font-size="13"> ×1</tspan></text>
+<text x="260" y="328" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="15" fill="#8b949e">25,000 <tspan fill="#6e7681">→</tspan> <tspan fill="#3fb950">82</tspan></text>
+<rect x="520" y="316" width="210" height="12" rx="6" fill="#21262d"/>
+<rect x="520" y="316" width="73.3" height="12" rx="6" fill="#58a6ff"/>
+<text x="740" y="328" font-family="-apple-system,'Segoe UI',Helvetica,Arial,'DejaVu Sans',sans-serif" font-size="13" fill="#8b949e">35%</text>
+<text x="32" y="362" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="15" fill="#e6edf3">test<tspan fill="#6e7681" font-size="13"> ×2</tspan></text>
+<text x="260" y="362" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="15" fill="#8b949e">16,628 <tspan fill="#6e7681">→</tspan> <tspan fill="#3fb950">386</tspan></text>
+<rect x="520" y="350" width="210" height="12" rx="6" fill="#21262d"/>
+<rect x="520" y="350" width="47.8" height="12" rx="6" fill="#58a6ff"/>
+<text x="740" y="362" font-family="-apple-system,'Segoe UI',Helvetica,Arial,'DejaVu Sans',sans-serif" font-size="13" fill="#8b949e">23%</text>
+<text x="32" y="406" font-family="-apple-system,'Segoe UI',Helvetica,Arial,'DejaVu Sans',sans-serif" font-size="13" fill="#6e7681">RECENT RUNS</text>
+<circle cx="38" cy="427" r="5" fill="#f85149"/>
+<text x="52" y="432" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#8b949e">10:34</text>
+<text x="112" y="432" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#e6edf3">emu</text>
+<text x="330" y="432" text-anchor="end" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#8b949e">25,000+</text>
+<text x="342" y="432" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#6e7681">→</text>
+<text x="420" y="432" text-anchor="end" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#3fb950">82</text>
+<text x="440" y="432" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#f85149">fail</text>
+<circle cx="38" cy="453" r="5" fill="#3fb950"/>
+<text x="52" y="458" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#8b949e">10:34</text>
+<text x="112" y="458" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#e6edf3">test</text>
+<text x="330" y="458" text-anchor="end" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#8b949e">8,093</text>
+<text x="342" y="458" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#6e7681">→</text>
+<text x="420" y="458" text-anchor="end" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#3fb950">61</text>
+<text x="440" y="458" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#8b949e">ok</text>
+<circle cx="38" cy="479" r="5" fill="#f85149"/>
+<text x="52" y="484" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#8b949e">10:34</text>
+<text x="112" y="484" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#e6edf3">test</text>
+<text x="330" y="484" text-anchor="end" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#8b949e">8,535</text>
+<text x="342" y="484" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#6e7681">→</text>
+<text x="420" y="484" text-anchor="end" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#3fb950">173</text>
+<text x="440" y="484" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#f85149">fail</text>
+<circle cx="38" cy="505" r="5" fill="#3fb950"/>
+<text x="52" y="510" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#8b949e">10:34</text>
+<text x="112" y="510" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#e6edf3">build</text>
+<text x="330" y="510" text-anchor="end" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#8b949e">4,460</text>
+<text x="342" y="510" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#6e7681">→</text>
+<text x="420" y="510" text-anchor="end" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#3fb950">40</text>
+<text x="440" y="510" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#8b949e">ok</text>
+<circle cx="38" cy="531" r="5" fill="#f85149"/>
+<text x="52" y="536" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#8b949e">10:34</text>
+<text x="112" y="536" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#e6edf3">build</text>
+<text x="330" y="536" text-anchor="end" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#8b949e">9,859</text>
+<text x="342" y="536" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#6e7681">→</text>
+<text x="420" y="536" text-anchor="end" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#3fb950">122</text>
+<text x="440" y="536" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" fill="#f85149">fail</text>
+<text x="788" y="576" text-anchor="end" font-family="-apple-system,'Segoe UI',Helvetica,Arial,'DejaVu Sans',sans-serif" font-size="12" fill="#6e7681">tokens = chars/4 · + = huge output counted as 25,000 (tool limit) · github.com/muskec06/runbrief</text>
+</svg>

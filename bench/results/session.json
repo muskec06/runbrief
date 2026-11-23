@@ -4,70 +4,136 @@
   "runs": 6,
   "failed": 4,
   "followups": 2,
-  "raw_tokens": 3897411,
-  "brief_tokens": 627,
+  "raw_tokens": 72393,
+  "raw_uncapped_tokens": 3897411,
+  "cap_tokens": 25000,
+  "capped_runs": 1,
+  "brief_tokens": 625,
   "followup_tokens": 425,
-  "net_saved_tokens": 3896358,
-  "reduction_pct": 99.97,
+  "read_tokens": 1050,
+  "net_saved_tokens": 71343,
+  "reduction_pct": 98.55,
   "disk_mb": 14.74,
+  "log_files": 6,
+  "first_ts": 1795419279,
+  "last_ts": 1795419289,
   "by_name": {
    "build": {
     "runs": 3,
+    "failed": 2,
     "raw_tokens": 30764,
-    "brief_tokens": 322
-   },
-   "test": {
-    "runs": 2,
-    "raw_tokens": 16628,
-    "brief_tokens": 224
+    "read_tokens": 582
    },
    "emu": {
     "runs": 1,
-    "raw_tokens": 3850018,
-    "brief_tokens": 82
+    "failed": 1,
+    "raw_tokens": 25000,
+    "read_tokens": 82
+   },
+   "test": {
+    "runs": 2,
+    "failed": 1,
+    "raw_tokens": 16628,
+    "read_tokens": 386
    }
-  }
+  },
+  "recent": [
+   {
+    "ts": 1795419279,
+    "name": "build",
+    "status": "fail",
+    "seconds": 6.2,
+    "raw_tokens": 16445,
+    "capped": false,
+    "read_tokens": 147
+   },
+   {
+    "ts": 1795419286,
+    "name": "build",
+    "status": "fail",
+    "seconds": 7.31,
+    "raw_tokens": 9859,
+    "capped": false,
+    "read_tokens": 122
+   },
+   {
+    "ts": 1795419286,
+    "name": "build",
+    "status": "ok",
+    "seconds": 0.34,
+    "raw_tokens": 4460,
+    "capped": false,
+    "read_tokens": 40
+   },
+   {
+    "ts": 1795419287,
+    "name": "test",
+    "status": "fail",
+    "seconds": 0.62,
+    "raw_tokens": 8535,
+    "capped": false,
+    "read_tokens": 173
+   },
+   {
+    "ts": 1795419288,
+    "name": "test",
+    "status": "ok",
+    "seconds": 0.49,
+    "raw_tokens": 8093,
+    "capped": false,
+    "read_tokens": 61
+   },
+   {
+    "ts": 1795419289,
+    "name": "emu",
+    "status": "fail",
+    "seconds": 1.62,
+    "raw_tokens": 25000,
+    "capped": true,
+    "read_tokens": 82
+   }
+  ]
  },
  "steps": [
   {
    "title": "1. Build",
-   "cmd": "runbrief -n build -- make -C /tmp/runbrief-session-ub_onv0e/emu/build VERBOSE=1 -k -j2",
-   "out": "[runbrief] build: FAIL exit=2 | 6.4s | 607 lines | errors 2 (74 hits) | warnings 0 | log .runbrief/logs/build-20261123-000756-037-fail.log\nerrors (first-seen order, showing 2/2):\n  L18: /tmp/runbrief-session-ub_onv0e/emu/include/regs.h:5:59: error: \u2018MASK_ALL\u2019 was not declared in this scope  [x73]\n  L499: /tmp/runbrief-session-ub_onv0e/emu/src/periph/uart.cpp:6:68: error: \u2018baud_divisor\u2019 was not declared in this scope\nbuild-system: 75 failure line(s), first L26: make[2]: *** [CMakeFiles/emu.dir/build.make:90: CMakeFiles/emu.dir/src/cpu/op_001.cpp.o] Error 1\nmore: runbrief grep 'REGEX' -n build  |  runbrief show -n build -L <line> -C 20"
+   "cmd": "runbrief -n build -- make -C ~/emu/build VERBOSE=1 -k -j2",
+   "out": "[runbrief] build: FAIL exit=2 | 6.2s | 607 lines | errors 2 (74 hits) | warnings 0 | log .runbrief/logs/build-20261123-103432-374-fail.log\nerrors (first-seen order, showing 2/2):\n  L18: emu/include/regs.h:5:59: error: \u2018MASK_ALL\u2019 was not declared in this scope  [x73]\n  L507: emu/src/periph/uart.cpp:6:68: error: \u2018baud_divisor\u2019 was not declared in this scope\nbuild-system: 75 failure line(s), first L26: make[2]: *** [CMakeFiles/emu.dir/build.make:90: CMakeFiles/emu.dir/src/cpu/op_001.cpp.o] Error 1\nmore: runbrief grep 'REGEX' -n build  |  runbrief show -n build -L <line> -C 20"
   },
   {
    "title": "2. Look at the first error in context",
    "cmd": "runbrief show -n build -L 18 -C 4",
-   "out": "[runbrief] .runbrief/logs/build-20261123-000756-037-fail.log: lines 14-22\n  L14- [  2%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_001.cpp.o\n  L15- /usr/bin/c++  -I/tmp/runbrief-session-ub_onv0e/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_001.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_001.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_001.cpp.o -c /tmp/runbrief-session-ub_onv0e/emu/src/cpu/op_001.cpp\n  L16- In file included from /tmp/runbrief-session-ub_onv0e/emu/src/cpu/op_000.cpp:1:\n  L17- /tmp/runbrief-session-ub_onv0e/emu/include/regs.h: In function \u2018uint32_t reg_mask(const Regs&)\u2019:\n  L18: /tmp/runbrief-session-ub_onv0e/emu/include/regs.h:5:59: error: \u2018MASK_ALL\u2019 was not declared in this scope\n  L19-     5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }\n  L20-       |                                                           ^~~~~~~~\n  L21- In file included from /tmp/runbrief-session-ub_onv0e/emu/src/cpu/op_001.cpp:1:\n  L22- /tmp/runbrief-session-ub_onv0e/emu/include/regs.h: In function \u2018uint32_t reg_mask(const Regs&)\u2019:"
+   "out": "[runbrief] .runbrief/logs/build-20261123-103432-374-fail.log: lines 14-22\n  L14- [  2%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_000.cpp.o\n  L15- /usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_000.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_000.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_000.cpp.o -c ~/emu/src/cpu/op_000.cpp\n  L16- In file included from ~/emu/src/cpu/op_001.cpp:1:\n  L17- ~/emu/include/regs.h: In function \u2018uint32_t reg_mask(const Regs&)\u2019:\n  L18: ~/emu/include/regs.h:5:59: error: \u2018MASK_ALL\u2019 was not declared in this scope\n  L19-     5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }\n  L20-       |                                                           ^~~~~~~~\n  L21- In file included from ~/emu/src/cpu/op_000.cpp:1:\n  L22- ~/emu/include/regs.h: In function \u2018uint32_t reg_mask(const Regs&)\u2019:"
   },
   {
    "title": "3. Fix regs.h, rebuild",
-   "cmd": "runbrief -n build -- make -C /tmp/runbrief-session-ub_onv0e/emu/build VERBOSE=1 -k -j2",
-   "out": "[runbrief] build: FAIL exit=2 | 7.2s | 244 lines | errors 1 | warnings 0 | log .runbrief/logs/build-20261123-000802-558-fail.log\nerrors (first-seen order, showing 1/1):\n  L209: /tmp/runbrief-session-ub_onv0e/emu/src/periph/uart.cpp:6:68: error: \u2018baud_divisor\u2019 was not declared in this scope\nbuild-system: 3 failure line(s), first L214: make[2]: *** [CMakeFiles/emu.dir/build.make:916: CMakeFiles/emu.dir/src/periph/uart.cpp.o] Error 1\nmore: runbrief grep 'REGEX' -n build  |  runbrief show -n build -L <line> -C 20"
+   "cmd": "runbrief -n build -- make -C ~/emu/build VERBOSE=1 -k -j2",
+   "out": "[runbrief] build: FAIL exit=2 | 7.3s | 244 lines | errors 1 | warnings 0 | log .runbrief/logs/build-20261123-103438-677-fail.log\nerrors (first-seen order, showing 1/1):\n  L211: emu/src/periph/uart.cpp:6:68: error: \u2018baud_divisor\u2019 was not declared in this scope\nbuild-system: 3 failure line(s), first L214: make[2]: *** [CMakeFiles/emu.dir/build.make:916: CMakeFiles/emu.dir/src/periph/uart.cpp.o] Error 1\nmore: runbrief grep 'REGEX' -n build  |  runbrief show -n build -L <line> -C 20"
   },
   {
    "title": "4. Fix uart.cpp, rebuild",
-   "cmd": "runbrief -n build -- make -C /tmp/runbrief-session-ub_onv0e/emu/build VERBOSE=1 -k -j2",
-   "out": "[runbrief] build: OK | 0.4s | 95 lines | errors 0 | warnings 0 | log .runbrief/logs/build-20261123-000809-765-ok.log"
+   "cmd": "runbrief -n build -- make -C ~/emu/build VERBOSE=1 -k -j2",
+   "out": "[runbrief] build: OK | 0.3s | 95 lines | errors 0 | warnings 0 | log .runbrief/logs/build-20261123-103446-058-ok.log | read: runbrief show -n build -L 1 -C 40"
   },
   {
    "title": "5. Run tests",
-   "cmd": "runbrief -n test -- cd /tmp/runbrief-session-ub_onv0e/pyt && /usr/local/bin/python3 -m pytest -v -p no:cacheprovider tests",
-   "out": "[runbrief] test: FAIL exit=1 | 0.6s | 448 lines | errors 6 | warnings 0 | log .runbrief/logs/test-20261123-000810-199-fail.log\ntests: ======================== 3 failed, 397 passed in 0.27s =========================\nerrors (first-seen order, showing 6/6):\n  L413: E   assert 0 == 4294967296\n  L432: E       ValueError: illegal opcode 0x3F\n  L439: E   assert 4294967295 == -1\n  L445: FAILED tests/test_cpu.py::test_shl_overflow - assert 0 == 4294967296\n  L446: FAILED tests/test_cpu.py::test_decode_illegal - ValueError: illegal opcode 0x3F\n  L447: FAILED tests/test_cpu.py::test_sub_wrap - assert 4294967295 == -1\nmore: runbrief grep 'REGEX' -n test  |  runbrief show -n test -L <line> -C 20"
+   "cmd": "runbrief -n test -- cd ~/pyt && /usr/local/bin/python3 -m pytest -v -p no:cacheprovider tests",
+   "out": "[runbrief] test: FAIL exit=1 | 0.6s | 448 lines | errors 6 | warnings 0 | log .runbrief/logs/test-20261123-103446-457-fail.log\ntests: ======================== 3 failed, 397 passed in 0.27s =========================\nerrors (first-seen order, showing 6/6):\n  L413: E   assert 0 == 4294967296\n  L432: E       ValueError: illegal opcode 0x3F\n  L439: E   assert 4294967295 == -1\n  L445: FAILED tests/test_cpu.py::test_shl_overflow - assert 0 == 4294967296\n  L446: FAILED tests/test_cpu.py::test_decode_illegal - ValueError: illegal opcode 0x3F\n  L447: FAILED tests/test_cpu.py::test_sub_wrap - assert 4294967295 == -1\nmore: runbrief grep 'REGEX' -n test  |  runbrief show -n test -L <line> -C 20"
   },
   {
    "title": "6. Inspect one failure",
    "cmd": "runbrief grep def test_sub_wrap|assert .* == -1 -n test -C 1 -m 3",
-   "out": "[runbrief] .runbrief/logs/test-20261123-000810-199-fail.log: 3 match(es) for /def test_sub_wrap|assert .* == -1/\n  L436- \n  L437: >   def test_sub_wrap(): assert cpu.sub(0, 1) == -1\n  L438-                          ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  L439: E   assert 4294967295 == -1\n  L440- E    +  where 4294967295 = <function sub at 0x7feeebcdfa60>(0, 1)\n  --\n  L446- FAILED tests/test_cpu.py::test_decode_illegal - ValueError: illegal opcode 0x3F\n  L447: FAILED tests/test_cpu.py::test_sub_wrap - assert 4294967295 == -1\n  L448- ======================== 3 failed, 397 passed in 0.27s ========================="
+   "out": "[runbrief] .runbrief/logs/test-20261123-103446-457-fail.log: 3 match(es) for /def test_sub_wrap|assert .* == -1/\n  L436- \n  L437: >   def test_sub_wrap(): assert cpu.sub(0, 1) == -1\n  L438-                          ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  L439: E   assert 4294967295 == -1\n  L440- E    +  where 4294967295 = <function sub at 0x7ffa09dfba60>(0, 1)\n  --\n  L446- FAILED tests/test_cpu.py::test_decode_illegal - ValueError: illegal opcode 0x3F\n  L447: FAILED tests/test_cpu.py::test_sub_wrap - assert 4294967295 == -1\n  L448- ======================== 3 failed, 397 passed in 0.27s ========================="
   },
   {
    "title": "7. Fix and rerun tests",
-   "cmd": "runbrief -n test -- cd /tmp/runbrief-session-ub_onv0e/pyt && /usr/local/bin/python3 -m pytest -v -p no:cacheprovider tests",
-   "out": "[runbrief] test: OK | 0.6s | 408 lines | errors 0 | warnings 0 | log .runbrief/logs/test-20261123-000810-901-ok.log\ntests: ============================= 400 passed in 0.29s =============================="
+   "cmd": "runbrief -n test -- cd ~/pyt && /usr/local/bin/python3 -m pytest -v -p no:cacheprovider tests",
+   "out": "[runbrief] test: OK | 0.5s | 408 lines | errors 0 | warnings 0 | log .runbrief/logs/test-20261123-103447-170-ok.log | read: runbrief show -n test -L 1 -C 40\ntests: ============================= 400 passed in 0.22s =============================="
   },
   {
    "title": "8. Run the emulator",
-   "cmd": "runbrief -n emu -T 60 -- /usr/local/bin/python3 /tmp/runbrief-session-ub_onv0e/emu_sim.py 200000 150000 fault",
-   "out": "[runbrief] emu: FAIL exit=1 | 1.5s | 200,001 lines | errors 1 | warnings 0 | log .runbrief/logs/emu-20261123-000811-585-fail.log\nerrors (first-seen order, showing 1/1):\n  L150002: [EMU] FAULT: illegal opcode 0xFF at pc=0x000937C0 (HardFault escalated)\nmore: runbrief grep 'REGEX' -n emu  |  runbrief show -n emu -L <line> -C 20"
+   "cmd": "runbrief -n emu -T 60 -- /usr/local/bin/python3 ~/emu_sim.py 200000 150000 fault",
+   "out": "[runbrief] emu: FAIL exit=1 | 1.6s | 200,001 lines | errors 1 | warnings 0 | log .runbrief/logs/emu-20261123-103447-714-fail.log\nerrors (first-seen order, showing 1/1):\n  L150002: [EMU] FAULT: illegal opcode 0xFF at pc=0x000937C0 (HardFault escalated)\nmore: runbrief grep 'REGEX' -n emu  |  runbrief show -n emu -L <line> -C 20"
   }
  ]
 }

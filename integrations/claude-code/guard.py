@@ -22,6 +22,10 @@ NOISY = [
     r"\bpip3?\s+install\b", r"\bnpm\s+(install|ci|run\s+build)\b",
     r"\bcargo\s+(build|test)\b", r"\bqemu-system-\w+", r"\brenode\b",
     r"\bmeson\s+(compile|test)\b", r"\bbazel\s+(build|test)\b", r"\bgradlew?\b",
+    r"\bapt(-get)?\s+(install|upgrade|full-upgrade|dist-upgrade|update)\b", r"\bdpkg\s+-i\b",
+    r"\b(yum|dnf|zypper)\s+(install|update|upgrade)\b", r"\bpacman\s+-S", r"\bconda\s+(install|create|update)\b",
+    r"\bdocker\s+(build|compose\s+(up|build))\b", r"\bpodman\s+build\b",
+    r"(^|[;&|]\s*)\./configure\b", r"\bautoreconf\b", r"\bmake\s+-C\s+/lib/modules\b",
 ]
 extra = os.environ.get("RUNBRIEF_NOISY_EXTRA")
 if extra:
