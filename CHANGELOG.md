@@ -9,6 +9,9 @@
   to the command they inspected.
 - Docs: "How it works" diagrams (log flow, rule precedence) in both READMEs; a real, step-by-step
   skill session with every command and output in `docs/skill-example.md` (+ Turkish version).
+- README: "Using the skill" section (install, when it loads, costs) with a table of stats requests
+  in a skill session and a real stats card; skill and AGENTS.md handle stats requests (`--svg`
+  card sent as a file, `--since`, offer to save totals in HANDOFF.md).
 - AGENTS.md: project rules come first; contributor note; logs survive context compaction;
   HANDOFF.md records the current error as `name Lline`.
 - Includes all 1.0.1 changes below (1.0.1 was not released separately).

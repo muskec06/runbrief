@@ -111,19 +111,63 @@ Tabloyu doğru okumak için:
   Emülatör/simülatör satırları gerçekçi trace formatı üreten betiklerdir.
 - Hepsini `python3 bench/run_bench.py` ile yeniden üretebilirsiniz; CI her push'ta çalıştırır.
 
+## Skill kullanımı (tarayıcıda veya uygulamada Claude)
+
+Skill, runbrief'i Claude sohbetlerinde kullanmanın en kolay yoludur: yapıştırılacak prompt yoktur ve
+uzun sohbetlerde de çalışmaya devam eder, çünkü Claude derleme ya da test konusu açıldıkça skill'i yeniden yükler.
+
+**Bir kez yükleyin.** Settings › Capabilities: *Code execution and file creation* açık olsun. Sonra
+Customize › Skills › + › Create skill › Upload a skill ile
+[`dist/runbrief-skill.zip`](dist/runbrief-skill.zip) dosyasını seçin (her GitHub sürümüne de eklidir).
+
+**Sohbette neler olur**
+
+| An | Claude ne yapar | Maliyet |
+|---|---|---|
+| Her sohbet | skill'in adını ve açıklamasını görür | ≈ 70 token |
+| Derleme, test, kurulum, flash ya da simülatör söz konusu olunca | `SKILL.md`'yi yükler, bir kez `runbrief install` çalıştırır | ≈ 820 token + 1 satır |
+| Her gürültülü komut | `runbrief -n build -- "make ..."`, özeti okur | ham çıktı yerine ≈ 40-300 token |
+| Özet yetmezse | `runbrief show -n build -L 137 -C 2` | yalnızca istenen satırlar |
+
+Skill'in seçildiğinden emin olmak için *"Use the runbrief skill."* diye başlayın, görevi istediğiniz
+dilde yazın. Zaten süren bir sohbette aynı cümle skill'i o andan itibaren devreye sokar. Tüm komut ve
+çıktılarıyla gerçek bir oturum: [`docs/skill-example.tr.md`](docs/skill-example.tr.md).
+
+**Skill oturumunda istatistik.** Sohbette sormanız yeterli:
+
+| Siz deyin | Claude çalıştırır | Size döner | Sohbetteki çıktı |
+|---|---|---|---|
+| "runbrief kaç token kazandırdı?" | `runbrief stats` | panel: okunacak / okunan, net %, komut başına, son çalıştırmalar | ≈ 320 token |
+| "Sadece bu görev için" / "bugün" | `runbrief stats --since 2` | aynısı, son 2 saat için | ≈ 320 token |
+| "İstatistik kartı yap" | `runbrief stats --svg runbrief-stats.svg`, sonra dosyayı gönderir | aşağıdaki gibi bir SVG kart | ≈ 15 token |
+| "Ham sayıları ver" | `runbrief stats --json` | JSON | ≈ 190 token |
+| "İstatistikleri sıfırla" | `runbrief stats --reset` | temiz başlangıç | 1 satır |
+
+<img src="docs/skill-stats.svg" alt="Gerçek bir skill oturumunun istatistik kartı: 9.122 token okunacaktı, 336 okundu, %96,3 tasarruf" width="640">
+
+*Kart, [`docs/skill-example.tr.md`](docs/skill-example.tr.md) içindeki gerçek skill oturumundan: bir hatalı
+derleme, bir log bakışı, bir düzeltme, bir başarılı derleme.*
+
+- **Sayılar nerede tutulur:** Sohbetin çalışma klasöründeki `.runbrief/stats.jsonl` dosyasında; yani
+  istatistikler **sohbet başınadır**. Yeni bir sohbet ya da uzun aradan sonra sıfırlanan çalışma ortamı sıfırdan başlar.
+  Sohbetten ayrılmadan önce kartı (ya da "istatistik toplamlarını HANDOFF.md'ye ekle") isteyin; skill bunu bir kez önerir.
+- **Ne sayılır:** Tüm `grep`/`show` okumaları düşülmüş net değer; her çalıştırma en fazla 25.000 ham token
+  sayılır (ajanın araç çıktısı sınırı); token = karakter / 4.
+- **Asla otomatik değil:** Claude `stats`'ı yalnızca siz isteyince çalıştırır; aksi hâlde maliyeti yoktur.
+
 ## runbrief'in kendi maliyeti
 
 Aracı kullanmak da bedava değil; kendi ayak izi (ölçülen dosya boyutları, bayt/4):
 
 | Kullanım şekli | Sohbet başına tek seferlik | Sürekli |
 |---|---|---|
-| Prompt + `git clone` (sohbet) | `AGENTS.md` ≈ 1.020 token + klon/kurulum çıktısı ≈ 40 | yok |
-| claude.ai skill | — | skill açıklaması her sohbette ≈ 70 token; kullanılınca `SKILL.md` ≈ 690 |
+| Prompt + `git clone` (sohbet) | `AGENTS.md` ≈ 1.140 token + klon/kurulum çıktısı ≈ 40 | yok |
+| claude.ai skill | — | skill açıklaması her sohbette ≈ 70 token; kullanılınca `SKILL.md` ≈ 820 |
 | Claude Code kurulumu | — | `CLAUDE.md` kuralları oturum başına ≈ 240 token (önbellekli); engellenen ham komut bir kısa tur ekler |
 
 Kurallar ajana `runbrief.py`'yi (≈ 9.100 token) ve README'yi (≈ 5.400) **okumamasını**
 söyler; betiği çalıştırmak için ikisine de gerek yok. Başa baş noktası ilk gürültülü komuttur:
-yukarıdaki tek bir başarısız CMake derlemesi ≈ 1.060 token'lık kuruluma karşı ≈ 16.500 token kazandırır.
+yukarıdaki tek bir başarısız CMake derlemesi ≈ 1.180 token'lık kuruluma karşı ≈ 16.500 token kazandırır.
 
 ## Ajanın işini kötüleştirir mi?
 

@@ -42,4 +42,10 @@ its `scripts/runbrief.py`. If install finds no writable PATH dir, call the scrip
    chat would reclaim the space.
 7. Report briefly; cite file:line instead of pasting logs or code.
 
-`runbrief stats` reports tokens saved, only when the user asks.
+## Statistics (only when the user asks)
+- "How much did runbrief save?" -> `runbrief stats` (about 320 tokens of output); add `--since <hours>`
+  for "this task" / "today"; `--json` for raw numbers; `--reset` to start over.
+- "Make a stats card / picture" -> `runbrief stats --svg runbrief-stats.svg`, then send that file to
+  the user. Do not read the SVG back into the conversation.
+- Before the user leaves a long chat, offer once to put the `runbrief stats` totals into HANDOFF.md;
+  statistics live in this workspace's `.runbrief/` and are lost when it is reset.

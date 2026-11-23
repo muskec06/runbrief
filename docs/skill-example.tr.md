@@ -10,7 +10,7 @@ Yalnızca sohbet mesajları ("Siz", "Claude") etraftaki akışı anlatır.
 1. Claude'da **Settings › Capabilities** altında *Code execution and file creation* açık olsun.
 2. **Customize › Skills › + › Create skill › Upload a skill** ile `runbrief-skill.zip` dosyasını seçin.
 3. Bu kadar. Skill'in kısa açıklaması (yaklaşık 70 token) her sohbette Claude'a görünür; tam talimatlar
-   (yaklaşık 690 token) yalnızca derleme, test ya da simülatör çalıştırılacağı zaman yüklenir.
+   (yaklaşık 820 token) yalnızca derleme, test ya da simülatör çalıştırılacağı zaman yüklenir.
 
 ## 2. Sohbeti başlatın
 
@@ -26,7 +26,7 @@ sequenceDiagram
     participant S as runbrief skill
     participant D as Log on disk
     U->>C: Use the runbrief skill. Fix the emulator build.
-    C->>S: loads SKILL.md (about 690 tokens, once)
+    C->>S: loads SKILL.md (about 820 tokens, once)
     C->>C: runbrief install
     C->>D: runbrief -n build -- make (146 lines of output)
     D-->>C: brief - 1 error at L137 (about 120 tokens)

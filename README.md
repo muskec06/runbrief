@@ -113,19 +113,64 @@ How to read the table honestly:
   Emulator/simulator rows are generator scripts producing realistic trace formats.
 - Re-run everything with `python3 bench/run_bench.py`; CI does it on every push.
 
+## Using the skill (Claude in the browser or app)
+
+The skill is the easiest way to use runbrief in Claude chats: no prompt to paste, and it keeps
+working in long conversations because Claude reloads it whenever builds or tests come up.
+
+**Install once.** Settings › Capabilities: *Code execution and file creation* on. Then
+Customize › Skills › + › Create skill › Upload a skill, and choose
+[`dist/runbrief-skill.zip`](dist/runbrief-skill.zip) (also attached to each GitHub release).
+
+**What happens in a chat**
+
+| Moment | What Claude does | Cost |
+|---|---|---|
+| Every chat | sees the skill's name and description | ≈ 70 tokens |
+| A build, test, install, flash or simulator run comes up | loads `SKILL.md`, runs `runbrief install` once | ≈ 820 tokens + 1 line |
+| Each noisy command | `runbrief -n build -- "make ..."`, reads the brief | ≈ 40-300 tokens instead of the raw output |
+| A brief is not enough | `runbrief show -n build -L 137 -C 2` | only the lines asked for |
+
+Start with *"Use the runbrief skill."* to make sure it is picked, then describe the task in any
+language. In a conversation that is already running, the same sentence switches it on from that
+point. A full real session, with every command and output, is in
+[`docs/skill-example.md`](docs/skill-example.md).
+
+**Statistics in a skill session.** Just ask in the chat:
+
+| You say | Claude runs | You get | Output in the chat |
+|---|---|---|---|
+| "How many tokens did runbrief save?" | `runbrief stats` | the dashboard: would-have-read vs read, net %, per command, recent runs | ≈ 320 tokens |
+| "Only for this task" / "today" | `runbrief stats --since 2` | the same, for the last 2 hours | ≈ 320 tokens |
+| "Make a stats card" | `runbrief stats --svg runbrief-stats.svg`, then sends the file | an SVG card like the one below | ≈ 15 tokens |
+| "Give me the raw numbers" | `runbrief stats --json` | JSON | ≈ 190 tokens |
+| "Reset the statistics" | `runbrief stats --reset` | a fresh start | 1 line |
+
+<img src="docs/skill-stats.svg" alt="Stats card from a real skill session: 9,122 tokens would have been read, 336 were read, 96.3% saved" width="640">
+
+*Card from the real skill session in [`docs/skill-example.md`](docs/skill-example.md): one failing
+build, one look at the log, one fix, one successful build.*
+
+- **Where the numbers live:** `.runbrief/stats.jsonl` in the chat's working folder, so statistics
+  are **per conversation**. A new chat, or a workspace reset after a long pause, starts from zero.
+  Ask for the card (or "add the stats totals to HANDOFF.md") before you move on; the skill offers this once.
+- **What is counted:** net of every follow-up `grep`/`show`, each run capped at 25,000 raw tokens
+  (an agent's tool-output limit), tokens estimated as characters / 4.
+- **Never automatic:** Claude runs `stats` only when you ask, so it costs nothing otherwise.
+
 ## What runbrief itself costs
 
 Using the tool is not free either, so here is its own footprint (measured file sizes, bytes/4):
 
 | How you use it | One-time cost per conversation | Ongoing cost |
 |---|---|---|
-| Prompt + `git clone` (chat) | `AGENTS.md` ≈ 1,020 tokens + clone/install output ≈ 40 | none |
-| claude.ai skill | — | skill description ≈ 70 tokens in every chat; `SKILL.md` ≈ 690 when it is used |
+| Prompt + `git clone` (chat) | `AGENTS.md` ≈ 1,140 tokens + clone/install output ≈ 40 | none |
+| claude.ai skill | — | skill description ≈ 70 tokens in every chat; `SKILL.md` ≈ 820 when it is used |
 | Claude Code install | — | `CLAUDE.md` rules ≈ 240 tokens per session (cached); a blocked raw command costs one extra short turn |
 
 The rules tell the agent **not** to read `runbrief.py` (≈ 9,100 tokens) or this README
 (≈ 5,400): running the script needs neither. Break-even is the first noisy command: one
-failing CMake build above saves ≈ 16,500 tokens against a setup cost of ≈ 1,060.
+failing CMake build above saves ≈ 16,500 tokens against a setup cost of ≈ 1,180.
 
 ## Does it make the agent worse?
 

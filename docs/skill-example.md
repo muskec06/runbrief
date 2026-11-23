@@ -10,7 +10,7 @@ The commands and outputs are verbatim (home paths shortened to `~`). Only the ch
 1. In Claude: **Settings › Capabilities**, make sure *Code execution and file creation* is on.
 2. **Customize › Skills › + › Create skill › Upload a skill**, choose `runbrief-skill.zip`.
 3. That's it. The skill's short description (about 70 tokens) is visible to Claude in every chat;
-   the full instructions (about 690 tokens) are loaded only when a build, test or simulator
+   the full instructions (about 820 tokens) are loaded only when a build, test or simulator
    run comes up.
 
 ## 2. Start a chat
@@ -27,7 +27,7 @@ sequenceDiagram
     participant S as runbrief skill
     participant D as Log on disk
     U->>C: Use the runbrief skill. Fix the emulator build.
-    C->>S: loads SKILL.md (about 690 tokens, once)
+    C->>S: loads SKILL.md (about 820 tokens, once)
     C->>C: runbrief install
     C->>D: runbrief -n build -- make (146 lines of output)
     D-->>C: brief - 1 error at L137 (about 120 tokens)

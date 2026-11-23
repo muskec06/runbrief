@@ -63,4 +63,10 @@ Savings start from now; earlier output stays in the context until it is compacte
 user starts a new chat. Write HANDOFF.md right away and tell the user in one line that a
 new chat (with HANDOFF.md) would reclaim the space.
 
-`runbrief stats` shows tokens saved so far (on request; don't run it routinely).
+## Statistics (only when the user asks)
+- "How much did runbrief save?" -> `runbrief stats` (about 320 tokens of output); add `--since <hours>`
+  for "this task" / "today"; `--json` for raw numbers; `--reset` to start over.
+- "Make a stats card / picture" -> `runbrief stats --svg runbrief-stats.svg`, then send that file to
+  the user. Do not read the SVG back into the conversation.
+- Before the user leaves a long chat, offer once to put the `runbrief stats` totals into HANDOFF.md;
+  statistics live in this workspace's `.runbrief/` and are lost when it is reset.
