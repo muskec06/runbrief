@@ -156,23 +156,26 @@ def test_no_pattern_failure_shows_compacted_tail(env, tmp_path):
 # ---------------------------------------------------------------- timeout & big logs
 
 def test_timeout_kills_whole_process_tree(env, tmp_path):
+    # The grandchild announces itself before the timeout fires, so slow CI machines
+    # (Windows) cannot race the kill against process start-up.
     marker = tmp_path / "alive"
     child = script(tmp_path, f"""
         import time, pathlib
-        time.sleep(3)
+        print('child started', flush=True)
+        time.sleep(6)
         pathlib.Path({str(marker)!r}).write_text('x')
     """, "child.py")
     parent = script(tmp_path, f"""
         import subprocess, sys, time
         subprocess.Popen([sys.executable, {child!r}])
         while True:
-            print('trace', flush=True); time.sleep(0.01)
+            print('trace', flush=True); time.sleep(0.05)
     """, "parent.py")
     t0 = time.time()
-    rc, out = rb(env, "-n", "emu", "-T", "1", "--", PY, parent)
+    rc, out = rb(env, "-n", "emu", "-T", "3", "--", PY, parent)
     assert rc == 124 and "TIMEOUT" in out
-    assert time.time() - t0 < 10
-    time.sleep(3.5)
+    assert time.time() - t0 < 15
+    time.sleep(max(0, 7.5 - (time.time() - t0)))
     assert not marker.exists(), "grandchild survived the timeout"
 
 

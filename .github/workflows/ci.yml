@@ -9,17 +9,18 @@ jobs:
         python: ["3.10", "3.12", "3.13"]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with: { python-version: "${{ matrix.python }}" }
       - run: python -m pip install pytest
-      - run: python -m pytest -q tests/
+      - run: python -m pytest -q -rfE --durations=5 tests/
+        timeout-minutes: 10
   bench:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - run: sudo apt-get update && sudo apt-get install -y ninja-build clang
       - run: python3 -m pip install pytest
       - run: python3 bench/run_bench.py --out bench/results-ci
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with: { name: bench-results, path: bench/results-ci }
