@@ -4,6 +4,9 @@ You were pointed here to save context tokens while building, testing or running
 simulators. Follow these rules for the rest of the session. This file is all you need:
 do not read runbrief.py, README or other repo files (that would cost more tokens than it saves).
 
+> Working **on** the runbrief repository itself (asked to change or fix it)? Then this file does not
+> apply: read the code and tests normally. It is meant for agents that *use* runbrief in another project.
+
 ## Setup (once per session, ~1 second)
 
 ```bash
@@ -26,6 +29,12 @@ If `runbrief` is later "not found" (workspace reset), repeat the clone/setup ste
 Big output you must actually read: `runbrief -n x -H 40 -- "<cmd>"` (shows the first 40 lines,
 keeps the rest in the log). Tiny outputs (< 40 lines) are always shown in full.
 
+## Project rules come first
+
+If the project has its own `AGENTS.md` / `CLAUDE.md`, follow it; these rules only add *how* to
+run noisy commands. If a project rule demands full output (e.g. "paste the whole build log"),
+the project rule wins for that command.
+
 ## Rules
 
 1. **Fix from the brief.** It lists root-cause errors in first-seen order, with `[xN]`
@@ -41,10 +50,11 @@ keeps the rest in the log). Tiny outputs (< 40 lines) are always shown in full.
    around the reported line.
 5. **Keep the conversation small.** Maintain `HANDOFF.md` (<= 40 lines). Its first line is
    always: `Session uses runbrief: follow <path-to>/AGENTS.md`. Then: goal, decisions, files
-   changed, current error, next step. When the session is long or a task is done, say in one
+   changed, current error with its runbrief name and line (e.g. `build L18`), next step. When the session is long or a task is done, say in one
    line that this is a good point for a new session / `/compact`, and share HANDOFF.md.
 6. **After a context summary/compaction**, if you are unsure of these rules, re-read this
-   file (it is short). In a new session read HANDOFF.md first.
+   file (it is short). Logs live on disk, not in the context, so they survive compaction:
+   `runbrief show -n <name> -L <line>` still works. In a new session read HANDOFF.md first.
 7. **Report briefly.** Do not paste logs or whole files back to the user; cite `file:line`.
 
 ## Joining a conversation that is already long
