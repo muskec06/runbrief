@@ -45,6 +45,31 @@ The raw output of that build was **16,638 tokens**; the brief is **149**. The 73
 header error became one line with a count, and the 75 `make: *** Error` lines became one
 "consequence" line, so the second, unrelated bug in `uart.cpp` is not buried.
 
+## How it works
+
+The full output goes to disk, a short brief goes to the agent, and the agent pulls exact lines
+back only when it needs them. Line numbers in the brief stay valid after a context summary,
+because the log is not part of the context.
+
+```mermaid
+flowchart LR
+    A["Build, test or emulator command"] --> R["runbrief"]
+    R -->|every line| L[("Full log on disk<br/>.runbrief/logs")]
+    R -->|brief, about 150 tokens| C["Agent context"]
+    C -->|"grep / show -L 18"| L
+    L -.->|only the requested lines| C
+    K["Context compaction<br/>(disk is not touched)"] --> C
+```
+
+runbrief's rules sit next to your own project rules; they only say *how* to run noisy commands:
+
+```mermaid
+flowchart LR
+    P["Your AGENTS.md / CLAUDE.md<br/>what to do in this project"] --> R{{"Agent rules"}}
+    B["runbrief AGENTS.md or skill<br/>how to run noisy commands"] --> R
+    R --> X["On conflict, the project rule wins"]
+```
+
 ## Results
 
 Measured with [`bench/run_bench.py`](bench/run_bench.py) on real tool output (gcc 13.3,
@@ -143,6 +168,7 @@ the old output still occupies.
 
 Or upload [`dist/runbrief-skill.zip`](dist/runbrief-skill.zip) once as a skill
 (Customize › Skills › + › Create skill › Upload a skill) and start chats with *"Use the runbrief skill."*
+A real, step-by-step skill session with every command and output: [`docs/skill-example.md`](docs/skill-example.md).
 
 ### Claude Code
 
@@ -325,7 +351,7 @@ PROMPT.md                    copy-paste prompts
 skill/runbrief/SKILL.md      claude.ai skill source  ->  dist/runbrief-skill.zip (tools/build_skill.py)
 integrations/claude-code/    hooks, settings template, CLAUDE.md snippet, installer
 bench/                       reproducible benchmark, real session demo, results
-docs/                        demo video (GIF + MP4), stats card example, social preview, video render script
+docs/                        demo video, skill example, stats cards, social preview, video render script
 tests/                       pytest suite (29 tests)
 ```
 

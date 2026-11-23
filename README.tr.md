@@ -45,6 +45,31 @@ Bu derlemenin ham çıktısı **16.638 token**, özeti **149 token**. Başlık d
 kopyası sayaçlı tek satıra, 75 adet `make: *** Error` satırı tek bir "sonuç" satırına indi.
 Böylece `uart.cpp`'deki ikinci, ilgisiz hata gözden kaçmıyor.
 
+## Nasıl çalışır
+
+Tam çıktı diske, kısa özet ajana gider; ajan gerektiğinde yalnızca belirli satırları geri çeker.
+Log context'in parçası olmadığı için, sohbet özetlendikten sonra da özetteki satır numaraları geçerlidir.
+
+```mermaid
+flowchart LR
+    A["Derleme, test ya da emülatör komutu"] --> R["runbrief"]
+    R -->|her satır| L[("Diskteki tam log<br/>.runbrief/logs")]
+    R -->|özet, yaklaşık 150 token| C["Ajanın context'i"]
+    C -->|"grep / show -L 18"| L
+    L -.->|yalnızca istenen satırlar| C
+    K["Context özetleme<br/>(diske dokunmaz)"] --> C
+```
+
+runbrief'in kuralları sizin proje kurallarınızın yanında durur; yalnızca gürültülü komutların *nasıl*
+çalıştırılacağını söyler:
+
+```mermaid
+flowchart LR
+    P["Sizin AGENTS.md / CLAUDE.md<br/>bu projede ne yapılacağı"] --> R{{"Ajan kuralları"}}
+    B["runbrief AGENTS.md ya da skill<br/>gürültülü komutların nasıl çalışacağı"] --> R
+    R --> X["Çakışmada proje kuralı kazanır"]
+```
+
 ## Sonuçlar
 
 [`bench/run_bench.py`](bench/run_bench.py) ile gerçek araç çıktıları üzerinde ölçüldü
@@ -140,6 +165,7 @@ o andan itibaren tasarruf başlar ve bir `HANDOFF.md` yazılır. Böylece yeni b
 
 Ya da [`dist/runbrief-skill.zip`](dist/runbrief-skill.zip) dosyasını bir kez skill olarak yükleyin
 (Customize › Skills › + › Create skill › Upload a skill) ve sohbetlere *"Use the runbrief skill."* diye başlayın.
+Tüm komut ve çıktılarıyla gerçek, adım adım bir skill oturumu: [`docs/skill-example.tr.md`](docs/skill-example.tr.md).
 Prompt'lar İngilizce; Claude cevabı yine sizin dilinizde verir.
 
 ### Claude Code

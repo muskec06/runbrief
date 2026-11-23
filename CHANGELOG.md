@@ -7,6 +7,10 @@
 - Honest counting: each run's raw output is counted up to 25,000 tokens (an agent's tool-output
   limit; `RUNBRIEF_STATS_CAP_TOKENS`), uncapped total still shown. Follow-up reads are charged
   to the command they inspected.
+- Docs: "How it works" diagrams (log flow, rule precedence) in both READMEs; a real, step-by-step
+  skill session with every command and output in `docs/skill-example.md` (+ Turkish version).
+- AGENTS.md: project rules come first; contributor note; logs survive context compaction;
+  HANDOFF.md records the current error as `name Lline`.
 - Includes all 1.0.1 changes below (1.0.1 was not released separately).
 
 ## 1.0.1 - 2026-11-23 (unreleased, folded into 1.1.0)
