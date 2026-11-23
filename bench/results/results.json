@@ -1,0 +1,349 @@
+{
+ "meta": {
+  "date": "2026-11-23",
+  "python": "3.13.18",
+  "platform": "Linux-6.18.44-fc-v726-x86_64-with-glibc2.39",
+  "cpus": 2,
+  "tools": {
+   "gcc": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+   "clang": "Ubuntu clang version 18.1.3 (1ubuntu1)",
+   "cmake": "cmake version 3.28.3",
+   "ninja": "1.11.1",
+   "make": "GNU Make 4.3"
+  }
+ },
+ "results": [
+  {
+   "id": "cmake-make-cpp-errors",
+   "title": "C++ emulator, CMake + make VERBOSE=1 -k, header bug + uart bug",
+   "cmd": "make -C <tmp>/cpp_err/build clean > /dev/null; make -C <tmp>/cpp_err/build VERBOSE=1 -k -j2",
+   "raw_lines": 607,
+   "raw_bytes": 66551,
+   "raw_tokens": 16638,
+   "brief_lines": 6,
+   "brief_bytes": 653,
+   "brief_tokens": 163,
+   "reduction_pct": 99.02,
+   "markers": [
+    "MASK_ALL",
+    "baud_divisor"
+   ],
+   "found": [
+    "MASK_ALL",
+    "baud_divisor"
+   ],
+   "fidelity": "2/2",
+   "raw_has_markers": "2/2",
+   "raw_seconds": 6.07,
+   "runbrief_seconds": 6.24,
+   "log_mb": 0.06,
+   "log_gz_mb": 0.003,
+   "exit": 2,
+   "brief": "[runbrief] s: FAIL exit=2 | 6.2s | 607 lines | errors 2 (74 hits) | warnings 0 | log rb-cmake-make-cpp-errors/logs/s-20261123-000707-436-fail.log\nerrors (first-seen order, showing 2/2):\n  L18: <tmp>/cpp_err/include/regs.h:5:59: error: \u2018MASK_ALL\u2019 was not declared in this scope  [x73]\n  L500: <tmp>/cpp_err/src/periph/uart.cpp:6:68: error: \u2018baud_divisor\u2019 was not declared in this scope\nbuild-system: 75 failure line(s), first L26: make[2]: *** [CMakeFiles/emu.dir/build.make:76: CMakeFiles/emu.dir/src/cpu/op_000.cpp.o] Error 1\nmore: runbrief grep 'REGEX' -n s  |  runbrief show -n s -L <line> -C 20\n"
+  },
+  {
+   "id": "cmake-ninja-cpp-success",
+   "title": "Same project, fixed, -Wall -Wextra, ninja -v (success with warnings)",
+   "cmd": "ninja -C <tmp>/cpp_ok/build -t clean > /dev/null; ninja -C <tmp>/cpp_ok/build -v",
+   "raw_lines": 135,
+   "raw_bytes": 28254,
+   "raw_tokens": 7064,
+   "brief_lines": 1,
+   "brief_bytes": 127,
+   "brief_tokens": 32,
+   "reduction_pct": 99.55,
+   "markers": [
+    "OK"
+   ],
+   "found": [
+    "OK"
+   ],
+   "fidelity": "1/1",
+   "raw_has_markers": "1/1",
+   "raw_seconds": 7.03,
+   "runbrief_seconds": 6.86,
+   "log_mb": 0.03,
+   "log_gz_mb": 0.002,
+   "exit": 0,
+   "brief": "[runbrief] s: OK | 6.8s | 135 lines | errors 0 | warnings 1 | log rb-cmake-ninja-cpp-success/logs/s-20261123-000720-915-ok.log\n"
+  },
+  {
+   "id": "clang-template-errors",
+   "title": "clang++ template errors (unique_ptr copy, std::sort on map)",
+   "cmd": "clang++ -std=c++17 -c <tmp>/tmpl/bus.cpp -o /dev/null",
+   "raw_lines": 96,
+   "raw_bytes": 10956,
+   "raw_tokens": 2739,
+   "brief_lines": 7,
+   "brief_bytes": 1104,
+   "brief_tokens": 276,
+   "reduction_pct": 89.92,
+   "markers": [
+    "bus.cpp:10",
+    "bus.cpp:11",
+    "bus.cpp:12"
+   ],
+   "found": [
+    "bus.cpp:10",
+    "bus.cpp:11",
+    "bus.cpp:12"
+   ],
+   "fidelity": "3/3",
+   "raw_has_markers": "3/3",
+   "raw_seconds": 0.33,
+   "runbrief_seconds": 0.37,
+   "log_mb": 0.01,
+   "log_gz_mb": 0.002,
+   "exit": 1,
+   "brief": "[runbrief] s: FAIL exit=1 | 0.3s | 96 lines | errors 4 (5 hits) | warnings 0 | log rb-clang-template-errors/logs/s-20261123-000728-109-fail.log\nerrors (first-seen order, showing 4/4):\n  L1: <tmp>/tmpl/bus.cpp:12:17: error: no matching member function for call to 'push_back'\n  L12: /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/stl_uninitialized.h:90:21: error: static assertion failed due to requirement 'is_constructible<std::unique_ptr<Device, std::default_delete<Device>>, const std::unique_p ...  (from bus.cpp:10)\n  L35: /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/stl_construct.h:119:25: error: call to deleted constructor of 'std::unique_ptr<Device>'  (from bus.cpp:10)\n  L61: /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/stl_algo.h:1948:22: error: invalid operands to binary expression ('std::_Rb_tree_iterator<std::pair<const std::basic_string<char>, std::vector<std::unique_ptr<Device>>> ...  (from bus.cpp:11)  [x2]\nmore: runbrief grep 'REGEX' -n s  |  runbrief show -n s -L <line> -C 20\n"
+  },
+  {
+   "id": "gcc-template-errors",
+   "title": "g++ on the same file",
+   "cmd": "g++ -std=c++17 -c <tmp>/tmpl/bus.cpp -o /dev/null",
+   "raw_lines": 54,
+   "raw_bytes": 6397,
+   "raw_tokens": 1599,
+   "brief_lines": 6,
+   "brief_bytes": 811,
+   "brief_tokens": 203,
+   "reduction_pct": 87.32,
+   "markers": [
+    "bus.cpp:10",
+    "bus.cpp:11",
+    "bus.cpp:12"
+   ],
+   "found": [
+    "bus.cpp:10",
+    "bus.cpp:11",
+    "bus.cpp:12"
+   ],
+   "fidelity": "3/3",
+   "raw_has_markers": "3/3",
+   "raw_seconds": 0.28,
+   "runbrief_seconds": 0.31,
+   "log_mb": 0.01,
+   "log_gz_mb": 0.001,
+   "exit": 1,
+   "brief": "[runbrief] s: FAIL exit=1 | 0.3s | 54 lines | errors 3 | warnings 0 | log rb-gcc-template-errors/logs/s-20261123-000728-759-fail.log\nerrors (first-seen order, showing 3/3):\n  L2: <tmp>/tmpl/bus.cpp:12:26: error: no matching function for call to \u2018std::vector<std::unique_ptr<Device> >::push_back(Device)\u2019\n  L24: /usr/include/c++/13/bits/stl_algo.h:1948:50: error: no match for \u2018operator-\u2019 (operand types are \u2018std::_Rb_tree_iterator<std::pair<const std::__cxx11::basic_string<char>, std::vector<std::unique_ptr<Device> > > > ...  (from bus.cpp:11)\n  L51: /usr/include/c++/13/bits/stl_uninitialized.h:90:56: error: static assertion failed: result type must be constructible from input type  (from bus.cpp:10)\nmore: runbrief grep 'REGEX' -n s  |  runbrief show -n s -L <line> -C 20\n"
+  },
+  {
+   "id": "link-error",
+   "title": "Linker: undefined reference",
+   "cmd": "g++ <tmp>/link/main.cpp <tmp>/link/drv.cpp -o <tmp>/link/a.out",
+   "raw_lines": 3,
+   "raw_bytes": 155,
+   "raw_tokens": 39,
+   "brief_lines": 4,
+   "brief_bytes": 209,
+   "brief_tokens": 52,
+   "reduction_pct": -34.84,
+   "markers": [
+    "dma_start"
+   ],
+   "found": [
+    "dma_start"
+   ],
+   "fidelity": "1/1",
+   "raw_has_markers": "1/1",
+   "raw_seconds": 0.05,
+   "runbrief_seconds": 0.1,
+   "log_mb": 0.0,
+   "log_gz_mb": 0.0,
+   "exit": 1,
+   "brief": "[runbrief] s: FAIL exit=1 | 3 line(s), shown in full:\n/usr/bin/ld: /tmp/cciUPwVB.o: in function `main':\nmain.cpp:(.text+0xe): undefined reference to `dma_start(int)'\ncollect2: error: ld returned 1 exit status\n"
+  },
+  {
+   "id": "pytest-verbose",
+   "title": "pytest -v, 400 tests, 3 failures",
+   "cmd": "cd <tmp>/pyt && /usr/local/bin/python3 -m pytest -v -p no:cacheprovider tests",
+   "raw_lines": 448,
+   "raw_bytes": 34138,
+   "raw_tokens": 8534,
+   "brief_lines": 10,
+   "brief_bytes": 687,
+   "brief_tokens": 172,
+   "reduction_pct": 97.99,
+   "markers": [
+    "test_shl_overflow",
+    "test_decode_illegal",
+    "test_sub_wrap",
+    "3 failed"
+   ],
+   "found": [
+    "test_shl_overflow",
+    "test_decode_illegal",
+    "test_sub_wrap",
+    "3 failed"
+   ],
+   "fidelity": "4/4",
+   "raw_has_markers": "4/4",
+   "raw_seconds": 0.5,
+   "runbrief_seconds": 0.65,
+   "log_mb": 0.03,
+   "log_gz_mb": 0.003,
+   "exit": 1,
+   "brief": "[runbrief] s: FAIL exit=1 | 0.6s | 448 lines | errors 6 | warnings 0 | log rb-pytest-verbose/logs/s-20261123-000729-753-fail.log\ntests: ======================== 3 failed, 397 passed in 0.26s =========================\nerrors (first-seen order, showing 6/6):\n  L413: E   assert 0 == 4294967296\n  L432: E       ValueError: illegal opcode 0x3F\n  L439: E   assert 4294967295 == -1\n  L445: FAILED tests/test_cpu.py::test_shl_overflow - assert 0 == 4294967296\n  L446: FAILED tests/test_cpu.py::test_decode_illegal - ValueError: illegal opcode 0x3F\n  L447: FAILED tests/test_cpu.py::test_sub_wrap - assert 4294967295 == -1\nmore: runbrief grep 'REGEX' -n s  |  runbrief show -n s -L <line> -C 20\n"
+  },
+  {
+   "id": "python-crash",
+   "title": "Python emulator config loader: 800 log lines then KeyError",
+   "cmd": "/usr/local/bin/python3 <tmp>/pycrash/emu_cfg.py",
+   "raw_lines": 811,
+   "raw_bytes": 50076,
+   "raw_tokens": 12519,
+   "brief_lines": 4,
+   "brief_bytes": 338,
+   "brief_tokens": 84,
+   "reduction_pct": 99.33,
+   "markers": [
+    "KeyError: 'clock_hz'",
+    "emu_cfg.py:5"
+   ],
+   "found": [
+    "KeyError: 'clock_hz'",
+    "emu_cfg.py:5"
+   ],
+   "fidelity": "2/2",
+   "raw_has_markers": "1/2",
+   "raw_seconds": 0.06,
+   "runbrief_seconds": 0.08,
+   "log_mb": 0.05,
+   "log_gz_mb": 0.004,
+   "exit": 1,
+   "brief": "[runbrief] s: FAIL exit=1 | 0.0s | 811 lines | errors 1 | warnings 0 | log rb-python-crash/logs/s-20261123-000730-445-fail.log\nerrors (first-seen order, showing 1/1):\n  L811: KeyError: 'clock_hz'  <- <tmp>/pycrash/emu_cfg.py:5 in parse_periph\nmore: runbrief grep 'REGEX' -n s  |  runbrief show -n s -L <line> -C 20\n"
+  },
+  {
+   "id": "emulator-trace-fault",
+   "title": "Emulator instruction trace, 200k lines, FAULT in the middle",
+   "cmd": "/usr/local/bin/python3 <tmp>/emu_sim.py 200000 120000 fault",
+   "raw_lines": 200001,
+   "raw_bytes": 15400072,
+   "raw_tokens": 3850018,
+   "brief_lines": 4,
+   "brief_bytes": 334,
+   "brief_tokens": 84,
+   "reduction_pct": 100.0,
+   "markers": [
+    "illegal opcode 0xFF"
+   ],
+   "found": [
+    "illegal opcode 0xFF"
+   ],
+   "fidelity": "1/1",
+   "raw_has_markers": "1/1",
+   "raw_seconds": 1.3,
+   "runbrief_seconds": 1.42,
+   "log_mb": 14.69,
+   "log_gz_mb": 2.278,
+   "exit": 1,
+   "brief": "[runbrief] s: FAIL exit=1 | 1.4s | 200,001 lines | errors 1 | warnings 0 | log rb-emulator-trace-fault/logs/s-20261123-000731-827-fail.log\nerrors (first-seen order, showing 1/1):\n  L120002: [EMU] FAULT: illegal opcode 0xFF at pc=0x00076300 (HardFault escalated)\nmore: runbrief grep 'REGEX' -n s  |  runbrief show -n s -L <line> -C 20\n"
+  },
+  {
+   "id": "emulator-quiet-bug",
+   "title": "Same trace, bug line has NO error keyword (built-in patterns only)",
+   "cmd": "/usr/local/bin/python3 <tmp>/emu_sim.py 200000 120000 quiet",
+   "raw_lines": 200001,
+   "raw_bytes": 15400082,
+   "raw_tokens": 3850020,
+   "brief_lines": 11,
+   "brief_bytes": 980,
+   "brief_tokens": 245,
+   "reduction_pct": 99.99,
+   "markers": [
+    "CR1=0x0000DEAD"
+   ],
+   "found": [
+    "CR1=0x0000DEAD"
+   ],
+   "fidelity": "1/1",
+   "raw_has_markers": "1/1",
+   "raw_seconds": 1.08,
+   "runbrief_seconds": 1.45,
+   "log_mb": 14.69,
+   "log_gz_mb": 2.278,
+   "exit": 1,
+   "brief": "[runbrief] s: FAIL exit=1 | 1.4s | 200,001 lines | errors 0 | warnings 0 | log rb-emulator-quiet-bug/logs/s-20261123-000734-506-fail.log\nrare lines (shape seen <=2x in an otherwise repetitive output; heuristic):\n  L120002: uart0: unexpected register value CR1=0x0000DEAD after reset (expected 0x00000000)\ntail (last lines without a known pattern):\n  L199997: [000199995] pc=0x000C44EC op=ldr   r0=0x000927B1 r1=0x0003F2C4 sp=0x20007F14\n  L199998: [000199996] pc=0x000C44F0 op=str   r0=0x000927B4 r1=0x0003F2C3 sp=0x20007F10\n  L199999: [000199997] pc=0x000C44F4 op=add   r0=0x000927B7 r1=0x0003F2C2 sp=0x20007F0C\n  L200000: [000199998] pc=0x000C44F8 op=b     r0=0x000927BA r1=0x0003F2C1 sp=0x20007F08\n  L200001: [000199999] pc=0x000C44FC op=mov   r0=0x000927BD r1=0x0003F2C0 sp=0x20007F04\nnote: no known error pattern matched. Add one to .runbrief/patterns.txt (e.g. \\[EMU\\] FAULT) or inspect with grep/show.\nmore: runbrief grep 'REGEX' -n s  |  runbrief show -n s -L <line> -C 20\n"
+  },
+  {
+   "id": "emulator-quiet-bug+pattern",
+   "title": "Same, with one line in .runbrief/patterns.txt",
+   "cmd": "/usr/local/bin/python3 <tmp>/emu_sim.py 200000 120000 quiet",
+   "raw_lines": 200001,
+   "raw_bytes": 15400082,
+   "raw_tokens": 3850020,
+   "brief_lines": 4,
+   "brief_bytes": 350,
+   "brief_tokens": 88,
+   "reduction_pct": 100.0,
+   "markers": [
+    "CR1=0x0000DEAD"
+   ],
+   "found": [
+    "CR1=0x0000DEAD"
+   ],
+   "fidelity": "1/1",
+   "raw_has_markers": "1/1",
+   "raw_seconds": 1.28,
+   "runbrief_seconds": 1.5,
+   "log_mb": 14.69,
+   "log_gz_mb": 2.278,
+   "exit": 1,
+   "brief": "[runbrief] s: FAIL exit=1 | 1.5s | 200,001 lines | errors 1 | warnings 0 | log rb-emulator-quiet-bug+pattern/logs/s-20261123-000737-340-fail.log\nerrors (first-seen order, showing 1/1):\n  L120002: uart0: unexpected register value CR1=0x0000DEAD after reset (expected 0x00000000)\nmore: runbrief grep 'REGEX' -n s  |  runbrief show -n s -L <line> -C 20\n"
+  },
+  {
+   "id": "msbuild-csharp-fixture",
+   "title": "MSBuild/C# output, 40 projects (real format, replayed fixture)",
+   "cmd": "cat <tmp>/msbuild.txt; exit 1",
+   "raw_lines": 332,
+   "raw_bytes": 62983,
+   "raw_tokens": 15746,
+   "brief_lines": 6,
+   "brief_bytes": 757,
+   "brief_tokens": 189,
+   "reduction_pct": 98.8,
+   "markers": [
+    "CS0103",
+    "CS1061"
+   ],
+   "found": [
+    "CS0103",
+    "CS1061"
+   ],
+   "fidelity": "2/2",
+   "raw_has_markers": "2/2",
+   "raw_seconds": 0.0,
+   "runbrief_seconds": 0.08,
+   "log_mb": 0.06,
+   "log_gz_mb": 0.002,
+   "exit": 1,
+   "brief": "[runbrief] s: FAIL exit=1 | 0.0s | 332 lines | errors 2 (4 hits) | warnings 1 | log rb-msbuild-csharp-fixture/logs/s-20261123-000738-990-fail.log\nerrors (first-seen order, showing 2/2):\n  L114: C:\\src\\Emu\\Emu.Periph17\\UartDevice.cs(88,13): error CS0103: The name 'baudDivisor' does not exist in the current context [C:\\src\\Emu\\Emu.Periph17\\Emu.Periph17.csproj]  [x2]\n  L115: C:\\src\\Emu\\Emu.Periph17\\UartDevice.cs(95,22): error CS1061: 'IBus' does not contain a definition for 'WriteWord' and no accessible extension method 'WriteWord' accepting a first argument of type 'IBus' could be found (are you missing a usin ...  [x2]\nbuild-system: 2 failure line(s), first L205: Build FAILED.\nmore: runbrief grep 'REGEX' -n s  |  runbrief show -n s -L <line> -C 20\n"
+  },
+  {
+   "id": "endless-sim-timeout",
+   "title": "Simulator that never exits, stopped after 8 s (-T 8, 20 MB log cap)",
+   "cmd": "/usr/local/bin/python3 <tmp>/endless.py",
+   "raw_lines": 4374002,
+   "raw_bytes": 258066048,
+   "raw_tokens": 64516512,
+   "brief_lines": 4,
+   "brief_bytes": 341,
+   "brief_tokens": 85,
+   "reduction_pct": 100.0,
+   "markers": [
+    "DMA channel 3 underrun"
+   ],
+   "found": [
+    "DMA channel 3 underrun"
+   ],
+   "fidelity": "1/1",
+   "raw_has_markers": "1/1",
+   "raw_seconds": 8.0,
+   "runbrief_seconds": 8.11,
+   "log_mb": 11.51,
+   "log_gz_mb": 2.168,
+   "exit": 124,
+   "brief": "[runbrief] s: TIMEOUT after 8s | 8.1s | 1,093,182 lines | errors 1 | warnings 0 | log trimmed 5x (cap 20 MB) | log rb-endless-sim-timeout/logs/s-20261123-000747-066-timeout.log\nerrors (first-seen order, showing 1/1):\n  L100001: dma.c:211: error: DMA channel 3 underrun\nmore: runbrief grep 'REGEX' -n s  |  runbrief show -n s -L <line> -C 20\n"
+  }
+ ]
+}

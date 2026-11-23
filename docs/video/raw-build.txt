@@ -1,0 +1,607 @@
+make: Entering directory '~/emu/build'
+/usr/bin/cmake -S~/emu -B~/emu/build --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start ~/emu/build/CMakeFiles ~/emu/build//CMakeFiles/progress.marks
+make  -f CMakeFiles/Makefile2 all
+make[1]: Entering directory '~/emu/build'
+make  -f CMakeFiles/emu.dir/build.make CMakeFiles/emu.dir/depend
+make[2]: Entering directory '~/emu/build'
+cd ~/emu/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" ~/emu ~/emu ~/emu/build ~/emu/build ~/emu/build/CMakeFiles/emu.dir/DependInfo.cmake "--color="
+make[2]: Leaving directory '~/emu/build'
+make  -f CMakeFiles/emu.dir/build.make CMakeFiles/emu.dir/build
+make[2]: Entering directory '~/emu/build'
+[  1%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_000.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_000.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_000.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_000.cpp.o -c ~/emu/src/cpu/op_000.cpp
+[  2%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_001.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_001.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_001.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_001.cpp.o -c ~/emu/src/cpu/op_001.cpp
+[  4%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_002.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_002.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_002.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_002.cpp.o -c ~/emu/src/cpu/op_002.cpp
+[  5%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_003.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_003.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_003.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_003.cpp.o -c ~/emu/src/cpu/op_003.cpp
+[  6%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_004.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_004.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_004.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_004.cpp.o -c ~/emu/src/cpu/op_004.cpp
+[  8%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_005.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_005.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_005.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_005.cpp.o -c ~/emu/src/cpu/op_005.cpp
+[  9%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_006.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_006.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_006.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_006.cpp.o -c ~/emu/src/cpu/op_006.cpp
+[ 10%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_007.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_007.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_007.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_007.cpp.o -c ~/emu/src/cpu/op_007.cpp
+[ 12%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_008.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_008.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_008.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_008.cpp.o -c ~/emu/src/cpu/op_008.cpp
+[ 13%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_009.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_009.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_009.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_009.cpp.o -c ~/emu/src/cpu/op_009.cpp
+[ 14%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_010.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_010.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_010.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_010.cpp.o -c ~/emu/src/cpu/op_010.cpp
+[ 16%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_011.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_011.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_011.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_011.cpp.o -c ~/emu/src/cpu/op_011.cpp
+[ 17%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_012.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_012.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_012.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_012.cpp.o -c ~/emu/src/cpu/op_012.cpp
+[ 18%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_013.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_013.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_013.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_013.cpp.o -c ~/emu/src/cpu/op_013.cpp
+[ 20%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_014.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_014.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_014.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_014.cpp.o -c ~/emu/src/cpu/op_014.cpp
+[ 21%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_015.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_015.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_015.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_015.cpp.o -c ~/emu/src/cpu/op_015.cpp
+[ 22%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_016.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_016.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_016.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_016.cpp.o -c ~/emu/src/cpu/op_016.cpp
+[ 24%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_017.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_017.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_017.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_017.cpp.o -c ~/emu/src/cpu/op_017.cpp
+[ 25%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_018.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_018.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_018.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_018.cpp.o -c ~/emu/src/cpu/op_018.cpp
+[ 27%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_019.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_019.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_019.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_019.cpp.o -c ~/emu/src/cpu/op_019.cpp
+[ 28%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_020.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_020.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_020.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_020.cpp.o -c ~/emu/src/cpu/op_020.cpp
+[ 29%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_021.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_021.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_021.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_021.cpp.o -c ~/emu/src/cpu/op_021.cpp
+[ 31%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_022.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_022.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_022.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_022.cpp.o -c ~/emu/src/cpu/op_022.cpp
+[ 32%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_023.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_023.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_023.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_023.cpp.o -c ~/emu/src/cpu/op_023.cpp
+[ 33%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_024.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_024.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_024.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_024.cpp.o -c ~/emu/src/cpu/op_024.cpp
+[ 35%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_025.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_025.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_025.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_025.cpp.o -c ~/emu/src/cpu/op_025.cpp
+[ 36%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_026.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_026.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_026.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_026.cpp.o -c ~/emu/src/cpu/op_026.cpp
+[ 37%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_027.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_027.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_027.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_027.cpp.o -c ~/emu/src/cpu/op_027.cpp
+[ 39%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_028.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_028.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_028.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_028.cpp.o -c ~/emu/src/cpu/op_028.cpp
+[ 40%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_029.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_029.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_029.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_029.cpp.o -c ~/emu/src/cpu/op_029.cpp
+[ 41%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_030.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_030.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_030.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_030.cpp.o -c ~/emu/src/cpu/op_030.cpp
+[ 43%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_031.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_031.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_031.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_031.cpp.o -c ~/emu/src/cpu/op_031.cpp
+[ 44%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_032.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_032.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_032.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_032.cpp.o -c ~/emu/src/cpu/op_032.cpp
+[ 45%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_033.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_033.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_033.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_033.cpp.o -c ~/emu/src/cpu/op_033.cpp
+[ 47%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_034.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_034.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_034.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_034.cpp.o -c ~/emu/src/cpu/op_034.cpp
+[ 48%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_035.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_035.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_035.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_035.cpp.o -c ~/emu/src/cpu/op_035.cpp
+[ 50%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_036.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_036.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_036.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_036.cpp.o -c ~/emu/src/cpu/op_036.cpp
+[ 51%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_037.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_037.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_037.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_037.cpp.o -c ~/emu/src/cpu/op_037.cpp
+[ 52%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_038.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_038.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_038.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_038.cpp.o -c ~/emu/src/cpu/op_038.cpp
+[ 54%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_039.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_039.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_039.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_039.cpp.o -c ~/emu/src/cpu/op_039.cpp
+[ 55%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_040.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_040.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_040.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_040.cpp.o -c ~/emu/src/cpu/op_040.cpp
+[ 56%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_041.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_041.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_041.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_041.cpp.o -c ~/emu/src/cpu/op_041.cpp
+[ 58%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_042.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_042.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_042.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_042.cpp.o -c ~/emu/src/cpu/op_042.cpp
+[ 59%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_043.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_043.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_043.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_043.cpp.o -c ~/emu/src/cpu/op_043.cpp
+[ 60%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_044.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_044.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_044.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_044.cpp.o -c ~/emu/src/cpu/op_044.cpp
+[ 62%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_045.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_045.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_045.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_045.cpp.o -c ~/emu/src/cpu/op_045.cpp
+[ 63%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_046.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_046.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_046.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_046.cpp.o -c ~/emu/src/cpu/op_046.cpp
+[ 64%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_047.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_047.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_047.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_047.cpp.o -c ~/emu/src/cpu/op_047.cpp
+[ 66%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_048.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_048.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_048.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_048.cpp.o -c ~/emu/src/cpu/op_048.cpp
+[ 67%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_049.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_049.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_049.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_049.cpp.o -c ~/emu/src/cpu/op_049.cpp
+[ 68%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_050.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_050.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_050.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_050.cpp.o -c ~/emu/src/cpu/op_050.cpp
+[ 70%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_051.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_051.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_051.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_051.cpp.o -c ~/emu/src/cpu/op_051.cpp
+[ 71%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_052.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_052.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_052.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_052.cpp.o -c ~/emu/src/cpu/op_052.cpp
+[ 72%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_053.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_053.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_053.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_053.cpp.o -c ~/emu/src/cpu/op_053.cpp
+[ 74%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_054.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_054.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_054.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_054.cpp.o -c ~/emu/src/cpu/op_054.cpp
+[ 75%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_055.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_055.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_055.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_055.cpp.o -c ~/emu/src/cpu/op_055.cpp
+[ 77%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_056.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_056.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_056.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_056.cpp.o -c ~/emu/src/cpu/op_056.cpp
+[ 78%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_057.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_057.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_057.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_057.cpp.o -c ~/emu/src/cpu/op_057.cpp
+[ 79%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_058.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_058.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_058.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_058.cpp.o -c ~/emu/src/cpu/op_058.cpp
+[ 81%] Building CXX object CMakeFiles/emu.dir/src/cpu/op_059.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/cpu/op_059.cpp.o -MF CMakeFiles/emu.dir/src/cpu/op_059.cpp.o.d -o CMakeFiles/emu.dir/src/cpu/op_059.cpp.o -c ~/emu/src/cpu/op_059.cpp
+[ 82%] Building CXX object CMakeFiles/emu.dir/src/periph/uart.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/periph/uart.cpp.o -MF CMakeFiles/emu.dir/src/periph/uart.cpp.o.d -o CMakeFiles/emu.dir/src/periph/uart.cpp.o -c ~/emu/src/periph/uart.cpp
+[ 83%] Building CXX object CMakeFiles/emu.dir/src/periph/spi.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/periph/spi.cpp.o -MF CMakeFiles/emu.dir/src/periph/spi.cpp.o.d -o CMakeFiles/emu.dir/src/periph/spi.cpp.o -c ~/emu/src/periph/spi.cpp
+[ 85%] Building CXX object CMakeFiles/emu.dir/src/periph/i2c.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/periph/i2c.cpp.o -MF CMakeFiles/emu.dir/src/periph/i2c.cpp.o.d -o CMakeFiles/emu.dir/src/periph/i2c.cpp.o -c ~/emu/src/periph/i2c.cpp
+[ 86%] Building CXX object CMakeFiles/emu.dir/src/periph/dma.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/periph/dma.cpp.o -MF CMakeFiles/emu.dir/src/periph/dma.cpp.o.d -o CMakeFiles/emu.dir/src/periph/dma.cpp.o -c ~/emu/src/periph/dma.cpp
+[ 87%] Building CXX object CMakeFiles/emu.dir/src/periph/timer.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/periph/timer.cpp.o -MF CMakeFiles/emu.dir/src/periph/timer.cpp.o.d -o CMakeFiles/emu.dir/src/periph/timer.cpp.o -c ~/emu/src/periph/timer.cpp
+[ 89%] Building CXX object CMakeFiles/emu.dir/src/periph/gpio.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/periph/gpio.cpp.o -MF CMakeFiles/emu.dir/src/periph/gpio.cpp.o.d -o CMakeFiles/emu.dir/src/periph/gpio.cpp.o -c ~/emu/src/periph/gpio.cpp
+[ 90%] Building CXX object CMakeFiles/emu.dir/src/periph/adc.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/periph/adc.cpp.o -MF CMakeFiles/emu.dir/src/periph/adc.cpp.o.d -o CMakeFiles/emu.dir/src/periph/adc.cpp.o -c ~/emu/src/periph/adc.cpp
+[ 91%] Building CXX object CMakeFiles/emu.dir/src/periph/dac.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/periph/dac.cpp.o -MF CMakeFiles/emu.dir/src/periph/dac.cpp.o.d -o CMakeFiles/emu.dir/src/periph/dac.cpp.o -c ~/emu/src/periph/dac.cpp
+[ 93%] Building CXX object CMakeFiles/emu.dir/src/periph/can.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/periph/can.cpp.o -MF CMakeFiles/emu.dir/src/periph/can.cpp.o.d -o CMakeFiles/emu.dir/src/periph/can.cpp.o -c ~/emu/src/periph/can.cpp
+[ 94%] Building CXX object CMakeFiles/emu.dir/src/periph/usb.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/periph/usb.cpp.o -MF CMakeFiles/emu.dir/src/periph/usb.cpp.o.d -o CMakeFiles/emu.dir/src/periph/usb.cpp.o -c ~/emu/src/periph/usb.cpp
+[ 95%] Building CXX object CMakeFiles/emu.dir/src/periph/rtc.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/periph/rtc.cpp.o -MF CMakeFiles/emu.dir/src/periph/rtc.cpp.o.d -o CMakeFiles/emu.dir/src/periph/rtc.cpp.o -c ~/emu/src/periph/rtc.cpp
+[ 97%] Building CXX object CMakeFiles/emu.dir/src/periph/wdt.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/periph/wdt.cpp.o -MF CMakeFiles/emu.dir/src/periph/wdt.cpp.o.d -o CMakeFiles/emu.dir/src/periph/wdt.cpp.o -c ~/emu/src/periph/wdt.cpp
+[ 98%] Building CXX object CMakeFiles/emu.dir/src/main.cpp.o
+/usr/bin/c++  -I~/emu/include -std=gnu++17 -MD -MT CMakeFiles/emu.dir/src/main.cpp.o -MF CMakeFiles/emu.dir/src/main.cpp.o.d -o CMakeFiles/emu.dir/src/main.cpp.o -c ~/emu/src/main.cpp
+make[2]: Leaving directory '~/emu/build'
+make[1]: Leaving directory '~/emu/build'
+make: Leaving directory '~/emu/build'
+In file included from ~/emu/src/cpu/op_000.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+In file included from ~/emu/src/cpu/op_001.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:90: CMakeFiles/emu.dir/src/cpu/op_001.cpp.o] Error 1
+make[2]: *** [CMakeFiles/emu.dir/build.make:76: CMakeFiles/emu.dir/src/cpu/op_000.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_002.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+In file included from ~/emu/src/cpu/op_003.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:118: CMakeFiles/emu.dir/src/cpu/op_003.cpp.o] Error 1
+make[2]: *** [CMakeFiles/emu.dir/build.make:104: CMakeFiles/emu.dir/src/cpu/op_002.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_005.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+In file included from ~/emu/src/cpu/op_004.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:146: CMakeFiles/emu.dir/src/cpu/op_005.cpp.o] Error 1
+make[2]: *** [CMakeFiles/emu.dir/build.make:132: CMakeFiles/emu.dir/src/cpu/op_004.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_006.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+In file included from ~/emu/src/cpu/op_007.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:160: CMakeFiles/emu.dir/src/cpu/op_006.cpp.o] Error 1
+make[2]: *** [CMakeFiles/emu.dir/build.make:174: CMakeFiles/emu.dir/src/cpu/op_007.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_008.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+In file included from ~/emu/src/cpu/op_009.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:188: CMakeFiles/emu.dir/src/cpu/op_008.cpp.o] Error 1
+make[2]: *** [CMakeFiles/emu.dir/build.make:202: CMakeFiles/emu.dir/src/cpu/op_009.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_010.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+In file included from ~/emu/src/cpu/op_011.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:216: CMakeFiles/emu.dir/src/cpu/op_010.cpp.o] Error 1
+make[2]: *** [CMakeFiles/emu.dir/build.make:230: CMakeFiles/emu.dir/src/cpu/op_011.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_012.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+In file included from ~/emu/src/cpu/op_013.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:244: CMakeFiles/emu.dir/src/cpu/op_012.cpp.o] Error 1
+make[2]: *** [CMakeFiles/emu.dir/build.make:258: CMakeFiles/emu.dir/src/cpu/op_013.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_014.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+In file included from ~/emu/src/cpu/op_015.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:272: CMakeFiles/emu.dir/src/cpu/op_014.cpp.o] Error 1
+make[2]: *** [CMakeFiles/emu.dir/build.make:286: CMakeFiles/emu.dir/src/cpu/op_015.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_016.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+In file included from ~/emu/src/cpu/op_017.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:300: CMakeFiles/emu.dir/src/cpu/op_016.cpp.o] Error 1
+make[2]: *** [CMakeFiles/emu.dir/build.make:314: CMakeFiles/emu.dir/src/cpu/op_017.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_018.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+In file included from ~/emu/src/cpu/op_019.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:328: CMakeFiles/emu.dir/src/cpu/op_018.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_020.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:342: CMakeFiles/emu.dir/src/cpu/op_019.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_021.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:356: CMakeFiles/emu.dir/src/cpu/op_020.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_022.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:370: CMakeFiles/emu.dir/src/cpu/op_021.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_023.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:384: CMakeFiles/emu.dir/src/cpu/op_022.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_024.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:398: CMakeFiles/emu.dir/src/cpu/op_023.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_025.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:412: CMakeFiles/emu.dir/src/cpu/op_024.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_026.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:426: CMakeFiles/emu.dir/src/cpu/op_025.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_027.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:440: CMakeFiles/emu.dir/src/cpu/op_026.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_028.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:454: CMakeFiles/emu.dir/src/cpu/op_027.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_029.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:468: CMakeFiles/emu.dir/src/cpu/op_028.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_030.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:482: CMakeFiles/emu.dir/src/cpu/op_029.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_031.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:496: CMakeFiles/emu.dir/src/cpu/op_030.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_032.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:510: CMakeFiles/emu.dir/src/cpu/op_031.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_033.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:524: CMakeFiles/emu.dir/src/cpu/op_032.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_034.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:538: CMakeFiles/emu.dir/src/cpu/op_033.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_035.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:552: CMakeFiles/emu.dir/src/cpu/op_034.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_036.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:566: CMakeFiles/emu.dir/src/cpu/op_035.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_037.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:580: CMakeFiles/emu.dir/src/cpu/op_036.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_038.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:594: CMakeFiles/emu.dir/src/cpu/op_037.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_039.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:608: CMakeFiles/emu.dir/src/cpu/op_038.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_040.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:622: CMakeFiles/emu.dir/src/cpu/op_039.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_041.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:636: CMakeFiles/emu.dir/src/cpu/op_040.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_042.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:650: CMakeFiles/emu.dir/src/cpu/op_041.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_043.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:664: CMakeFiles/emu.dir/src/cpu/op_042.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_044.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:678: CMakeFiles/emu.dir/src/cpu/op_043.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_045.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:692: CMakeFiles/emu.dir/src/cpu/op_044.cpp.o] Error 1
+make[2]: *** [CMakeFiles/emu.dir/build.make:706: CMakeFiles/emu.dir/src/cpu/op_045.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_046.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+In file included from ~/emu/src/cpu/op_047.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:720: CMakeFiles/emu.dir/src/cpu/op_046.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_048.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:734: CMakeFiles/emu.dir/src/cpu/op_047.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_049.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:748: CMakeFiles/emu.dir/src/cpu/op_048.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_050.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:762: CMakeFiles/emu.dir/src/cpu/op_049.cpp.o] Error 1
+make[2]: *** [CMakeFiles/emu.dir/build.make:776: CMakeFiles/emu.dir/src/cpu/op_050.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_051.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+In file included from ~/emu/src/cpu/op_052.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:790: CMakeFiles/emu.dir/src/cpu/op_051.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_053.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:804: CMakeFiles/emu.dir/src/cpu/op_052.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_054.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:818: CMakeFiles/emu.dir/src/cpu/op_053.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_055.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:832: CMakeFiles/emu.dir/src/cpu/op_054.cpp.o] Error 1
+make[2]: *** [CMakeFiles/emu.dir/build.make:846: CMakeFiles/emu.dir/src/cpu/op_055.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_056.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+In file included from ~/emu/src/cpu/op_057.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:874: CMakeFiles/emu.dir/src/cpu/op_057.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_058.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:860: CMakeFiles/emu.dir/src/cpu/op_056.cpp.o] Error 1
+In file included from ~/emu/src/cpu/op_059.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:888: CMakeFiles/emu.dir/src/cpu/op_058.cpp.o] Error 1
+In file included from ~/emu/src/periph/uart.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:902: CMakeFiles/emu.dir/src/cpu/op_059.cpp.o] Error 1
+In file included from ~/emu/src/periph/spi.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+~/emu/src/periph/uart.cpp: In function ‘void uart_write(uint32_t, uint32_t)’:
+~/emu/src/periph/uart.cpp:6:68: error: ‘baud_divisor’ was not declared in this scope
+    6 | void uart_write(uint32_t addr, uint32_t v) { uart_mmio[addr] = v + baud_divisor; }
+      |                                                                    ^~~~~~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:916: CMakeFiles/emu.dir/src/periph/uart.cpp.o] Error 1
+In file included from ~/emu/src/periph/i2c.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:930: CMakeFiles/emu.dir/src/periph/spi.cpp.o] Error 1
+In file included from ~/emu/src/periph/dma.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:944: CMakeFiles/emu.dir/src/periph/i2c.cpp.o] Error 1
+make[2]: *** [CMakeFiles/emu.dir/build.make:958: CMakeFiles/emu.dir/src/periph/dma.cpp.o] Error 1
+In file included from ~/emu/src/periph/timer.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+In file included from ~/emu/src/periph/gpio.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:972: CMakeFiles/emu.dir/src/periph/timer.cpp.o] Error 1
+In file included from ~/emu/src/periph/adc.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:986: CMakeFiles/emu.dir/src/periph/gpio.cpp.o] Error 1
+In file included from ~/emu/src/periph/dac.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:1000: CMakeFiles/emu.dir/src/periph/adc.cpp.o] Error 1
+In file included from ~/emu/src/periph/can.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:1014: CMakeFiles/emu.dir/src/periph/dac.cpp.o] Error 1
+In file included from ~/emu/src/periph/usb.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:1028: CMakeFiles/emu.dir/src/periph/can.cpp.o] Error 1
+In file included from ~/emu/src/periph/rtc.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:1042: CMakeFiles/emu.dir/src/periph/usb.cpp.o] Error 1
+In file included from ~/emu/src/periph/wdt.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:1056: CMakeFiles/emu.dir/src/periph/rtc.cpp.o] Error 1
+In file included from ~/emu/src/main.cpp:1:
+~/emu/include/regs.h: In function ‘uint32_t reg_mask(const Regs&)’:
+~/emu/include/regs.h:5:59: error: ‘MASK_ALL’ was not declared in this scope
+    5 | inline uint32_t reg_mask(const Regs& s) { return s.r[0] & MASK_ALL; }
+      |                                                           ^~~~~~~~
+make[2]: *** [CMakeFiles/emu.dir/build.make:1084: CMakeFiles/emu.dir/src/main.cpp.o] Error 1
+make[2]: *** [CMakeFiles/emu.dir/build.make:1070: CMakeFiles/emu.dir/src/periph/wdt.cpp.o] Error 1
+make[2]: Target 'CMakeFiles/emu.dir/build' not remade because of errors.
+make[1]: *** [CMakeFiles/Makefile2:83: CMakeFiles/emu.dir/all] Error 2
+make[1]: Target 'all' not remade because of errors.
+make: *** [Makefile:91: all] Error 2
+make: Target 'default_target' not remade because of errors.

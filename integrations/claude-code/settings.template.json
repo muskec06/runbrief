@@ -1,0 +1,25 @@
+{
+  "env": {
+    "BASH_MAX_OUTPUT_LENGTH": "30000",
+    "CTX_WINDOW": "200000",
+    "CTX_WARN_PCT": "50",
+    "RUNBRIEF_CMD": "python3 .claude/runbrief/runbrief.py"
+  },
+  "permissions": {
+    "deny": [
+      "Read(./build/**)", "Read(./out/**)", "Read(./obj/**)", "Read(./bin/Debug/**)", "Read(./bin/Release/**)",
+      "Read(./**/*.o)", "Read(./**/*.obj)", "Read(./**/*.elf)", "Read(./**/*.map)", "Read(./**/*.pdb)",
+      "Read(./.runbrief/logs/**)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      { "matcher": "Bash",
+        "hooks": [ { "type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/runbrief/guard.py\"" } ] }
+    ],
+    "UserPromptSubmit": [
+      { "hooks": [ { "type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/runbrief/context_watch.py\"" } ] }
+    ]
+  },
+  "statusLine": { "type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/runbrief/statusline.py\"" }
+}

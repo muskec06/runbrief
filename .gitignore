@@ -1,0 +1,5 @@
+.runbrief/
+__pycache__/
+*.pyc
+.pytest_cache/
+bench/results-ci/
