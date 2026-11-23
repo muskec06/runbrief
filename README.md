@@ -94,13 +94,13 @@ Using the tool is not free either, so here is its own footprint (measured file s
 
 | How you use it | One-time cost per conversation | Ongoing cost |
 |---|---|---|
-| Prompt + `git clone` (chat) | `AGENTS.md` ≈ 860 tokens + clone/install output ≈ 40 | none |
+| Prompt + `git clone` (chat) | `AGENTS.md` ≈ 1,020 tokens + clone/install output ≈ 40 | none |
 | claude.ai skill | — | skill description ≈ 70 tokens in every chat; `SKILL.md` ≈ 690 when it is used |
 | Claude Code install | — | `CLAUDE.md` rules ≈ 240 tokens per session (cached); a blocked raw command costs one extra short turn |
 
 The rules tell the agent **not** to read `runbrief.py` (≈ 9,100 tokens) or this README
 (≈ 5,400): running the script needs neither. Break-even is the first noisy command: one
-failing CMake build above saves ≈ 16,500 tokens against a setup cost of ≈ 900.
+failing CMake build above saves ≈ 16,500 tokens against a setup cost of ≈ 1,060.
 
 ## Does it make the agent worse?
 

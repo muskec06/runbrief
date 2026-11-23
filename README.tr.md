@@ -92,13 +92,13 @@ Aracı kullanmak da bedava değil; kendi ayak izi (ölçülen dosya boyutları, 
 
 | Kullanım şekli | Sohbet başına tek seferlik | Sürekli |
 |---|---|---|
-| Prompt + `git clone` (sohbet) | `AGENTS.md` ≈ 860 token + klon/kurulum çıktısı ≈ 40 | yok |
+| Prompt + `git clone` (sohbet) | `AGENTS.md` ≈ 1.020 token + klon/kurulum çıktısı ≈ 40 | yok |
 | claude.ai skill | — | skill açıklaması her sohbette ≈ 70 token; kullanılınca `SKILL.md` ≈ 690 |
 | Claude Code kurulumu | — | `CLAUDE.md` kuralları oturum başına ≈ 240 token (önbellekli); engellenen ham komut bir kısa tur ekler |
 
 Kurallar ajana `runbrief.py`'yi (≈ 9.100 token) ve README'yi (≈ 5.400) **okumamasını**
 söyler; betiği çalıştırmak için ikisine de gerek yok. Başa baş noktası ilk gürültülü komuttur:
-yukarıdaki tek bir başarısız CMake derlemesi ≈ 900 token'lık kuruluma karşı ≈ 16.500 token kazandırır.
+yukarıdaki tek bir başarısız CMake derlemesi ≈ 1.060 token'lık kuruluma karşı ≈ 16.500 token kazandırır.
 
 ## Ajanın işini kötüleştirir mi?
 
